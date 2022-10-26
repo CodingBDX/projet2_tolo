@@ -1,0 +1,77 @@
+{% extends "layout.html.twig" %}
+{% block title %}
+	{{parent()}}|
+	{{anime.title}}
+{% endblock %}
+
+
+{% block content %}
+	<div class="container-md mt-4">
+		<div class="title container-fluid p-2">
+			<h1 class="text-center mb-4 display-1">{{block('title')}}</h1>
+		</div>
+
+		<div class="row  mx-auto">
+
+
+			<div class="col-12 col-xl-6">
+				<div class="card  mt-2 ">
+					<div class="row">
+						<div class="col-6">
+							<img src="{{anime.getImages}}" class="card-img-top w-100 h-100 p-4" alt="..." style="height:15em">
+
+						</div>
+						<div class="col-6 mt-4">
+							<h2>{{anime.title}}</h2>
+
+
+							<p>
+								{% for animes in anime.trailer %}
+									{{animes.youtube_id}}
+
+
+								{% endfor %}
+							</p>
+
+							<div class="progress m-2">
+								<div class="progress-bar btn-warning" role="progressbar" aria-label="Example with label" style="width: {{anime.getScore * 10}}%; " aria-valuenow="{{anime.getScore}}" aria-valuemin="0" aria-valuemax="10">note:{{anime.getScore}}/10</div>
+
+
+							</div>
+
+							<a href="#" class="mt-2 btn btn-warning">
+								{{(anime.startDate) ? anime.startDate : "not start"}}
+
+
+							</a>
+							<a href="#" class="mt-2 btn btn-warning">
+								{{(anime.type) ? anime.type : "not type"}}
+
+
+							</a>
+
+						</div>
+
+
+					</div>
+
+
+					<div class="card-body m-2 text-light rounded opacity-50">
+
+
+						{{anime.getSynopsis}}
+
+
+					</div>
+				</div>
+			</div>
+			<div class="col-12 col-xl-6">
+
+
+				{% include "_Component/_comments.html.twig" %}
+			</div>
+		</div>
+
+
+	</div>
+{% endblock %}
