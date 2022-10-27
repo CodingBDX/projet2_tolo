@@ -2,11 +2,13 @@
 	<div class="container-fluid">
 		<div class="d-flex bd-highlight">
 
+			<div class="mx-auto mx-md-0 w-100">
+				<a class="navbar-brand" href="#">
+					<img src="https://ih1.redbubble.net/image.1998199613.9126/flat,128x,075,f-pad,128x128,f8f8f8.jpg" alt="Logo" width="120" height="84" class="d-inline-block align-text-top">
 
-			<a class="navbar-brand" href="#">
-				<img src="https://ih1.redbubble.net/image.1998199613.9126/flat,128x,075,f-pad,128x128,f8f8f8.jpg" alt="Logo" width="120" height="84" class="d-inline-block align-text-top">
+				</a>
+			</div>
 
-			</a>
 		</div>
 
 
@@ -17,11 +19,6 @@
 
 		</div>
 
-		<div class=" flex-shrink-1 bd-highlight text-light background-ws-light rounded p-2" id="navbarSupportedContent">
-
-			<p>inscription</p>
-			<p>connexion</p>
-		</div>
-
+		{% include "_Component/_inscription_connexion.html.twig" %}
 	</div>
 </nav>

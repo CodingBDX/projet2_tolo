@@ -1,8 +1,9 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-	{{parent()}}:Anime - List
+	{{parent()}}:Top Anime - List
 {% endblock %}
+
 
 {% block content %}
 	{% include "_Component/_caroussel.html.twig" %}
@@ -13,20 +14,21 @@
 		<div class="row mx-auto">
 
 
-			{% for i in 0..20 %}
+			{% for i in 0..10 %}
 				<div class="card w-15 mt-2 col-xl-2 col-md-3 col-sm-6">
 
-					<a href="show?id={{anime_list[i].malId}}">
-						<img src="{{anime_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
+					<a href="anime/show?id={{result[i].malId}}">
+						<img src="{{result[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
 					</a>
 
 					<div class="card-body">
-						<h5 class="card-title">{{anime_list[i].getTitle}}</h5>
+						<h5 class="card-title">{{result[i].getTitle}}</h5>
 						<div class="d-flex flex-row bd-highlight align-items-center mb-3">
 
 
 							<a href="#" class="btn btn-warning">
-								{{(anime_list[i].startDate) ? anime_list[i].startDate : "not start"}}
+								📅
+								{{(result[i].startDate) ? result[i].startDate : "not start"}}
 
 
 							</a>

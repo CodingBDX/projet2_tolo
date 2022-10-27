@@ -1,0 +1,52 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+
+<table class="table  table-hover background-ws-dark">
+
+	<thead>
+
+		<tr class="title">
+			<th scope="col">#</th>
+			<th scope="col">Name</th>
+			<th scope="col">Mail</th>
+			<th scope="col">Admin</th>
+			<th scope="col">Delete user</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users %}
+			{% include "Admin/modal_delete_user.html.twig" with {'user.id': user.id} %}
+
+
+			<tr class="text-light">
+				<th scope="row">{{user.id}}</th>
+
+				<td class="text-light">{{user.name}}</td>
+
+				<td class="text-light">{{user.mail}}</td>
+
+				<td>
+					{{ user.isAdmin ? '✔️' : '✖️' }}
+
+
+				</td>
+				<td>
+
+					<form action="/admin/delete" method="POST">
+						<input type="hidden" name="id" value="{{ user.id }}">
+
+						<button type="button" class="btn btn-danger title" data-bs-toggle="modal" data-bs-target="#Modal_delete_users">
+							⚰️Delete
+
+						</button>
+
+
+					</form>
+				</td>
+			</tr>
+		</td>
+	</tbody>
+</tr>{% endfor %}</tbody></table>{% endblock %}

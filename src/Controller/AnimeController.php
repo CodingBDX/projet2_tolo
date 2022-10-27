@@ -12,13 +12,13 @@ class AnimeController extends AbstractController
     /**
      * List items.
      */
-    public function topAnime(): string
+    public function listAnime(): string
     {
         $apiAnime = new MalClient();
         $topAnime = $apiAnime->getTopAnime(new TopAnimeRequest(1, 'tv'));
         $result = $topAnime->getResults();
 
-        return $this->twig->render('Anime/anime.html.twig', ['result' => $result]);
+        return $this->twig->render('Anime/anime.html.twig', ['anime_list' => $result]);
     }
 
      public function showAnimeMoreInfo(int $malId): string
@@ -27,7 +27,7 @@ class AnimeController extends AbstractController
 
          $data = $apiAnime->getAnime(new AnimeRequest($malId));
 
-         return $this->twig->render('Anime/show.html.twig', ['anime' => $data]);
+         return $this->twig->render('Anime/show.html.twig', ['anime_show' => $data]);
      }
 
      public function animeNews(): string

@@ -9,14 +9,20 @@
 return [
     '' => ['HomeController', 'index'],
     'items' => ['ItemController', 'index'],
+
+    'admin/all_users' => ['UserController', 'index'],
+    'admin/delete' => ['UserController', 'delete'],
+
     'items/edit' => ['ItemController', 'edit', ['id']],
     'items/show' => ['ItemController', 'show', ['id']],
     'items/add' => ['ItemController', 'add'],
     'items/delete' => ['ItemController', 'delete'],
-    'manga' => ['MangaController', 'topManga'],
+    'manga' => ['MangaController', 'listManga'],
 
-    'anime' => ['AnimeController', 'topAnime'],
+    'anime' => ['AnimeController', 'listAnime'],
 
     'anime/show' => ['AnimeController', 'showAnimeMoreInfo', ['id']],
+    'manga/show' => ['MangaController', 'showMangaMoreInfo', ['id']],
+
     'top' => ['TopController', 'getTop'],
 ];
