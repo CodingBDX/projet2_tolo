@@ -1,0 +1,69 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<h1 class="title text-center">Articles</h1>
+	{% for article in articles %}
+
+		<div class="container-md text-center rounded my-3">
+			<div class="row">
+				<div class="row mx-auto my-3  justify-content-center">
+					<div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+						<div class="carousel-inner" role="listbox">
+
+
+							<div class="carousel-item active">
+								<div class="col-12 col-md-4 col-xl-2">
+									<div class="card">
+										<img src="{{article.getImages}}" class="card-img-top" alt="..." style="height:20em;">
+
+										<div class="card-body">
+											<h2 class="card-title">{{article.title}}</h2>
+											<p class="card-text text-light">{{article.content}}</p>
+											<a href="/articles/show?id={{ article.id }}" class="btn btn-warning">Go to Article</a>
+
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							{% for i in 1..8 %}
+
+								<div class="carousel-item">
+									<div class="col-12 col-md-4 col-xl-2">
+
+										<div class="card">
+											<img src="{{result[i].getImages}}" class="card-img-top" alt="..." style="height:20em;">
+											<div class="card-body">
+												<h2 class="card-title">Article title</h2>
+												<p class="card-text text-light">{{article.content}}</p>
+
+
+												<a href="/articles/show?id={{ article.id }}" class="btn btn-warning">Go to Article</a>
+
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+						<a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						</a>
+						<a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+	{% else %}
+		<li>Nothing to display</li>
+	{% endfor %}
+	<a href="/articles/add">Ajouter</a>
+{% endblock %}

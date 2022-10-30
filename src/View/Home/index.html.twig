@@ -1,6 +1,84 @@
-{% extends 'layout.html.twig' %}
+{% extends "layout.html.twig" %}
 
 {% block content %}
-    <h1>Hello Wilder !</h1>
-    <p>Find a complete CRUD example on <a href="/items">/items</a> page.</p>
+	<div class="container-fluid row  mt-4 mb-4 p-3">
+		{% include "_Component/_caroussel.html.twig"  with {'article': article} %}
+
+
+		<div class="card background-ws-dark  col-12 col-md-6 col-xl-6">
+			<div class="container-md">
+
+				<div class="row mx-auto">
+
+					<h2 class="title text-center">Anime top</h2>
+					{% for i in 0..10 %}
+						<div class="card w-15 mt-2 col-xl-3 col-md-6 col-sm-6">
+
+							<a href="anime/show?id={{anime_list[i].malId}}">
+								<img src="{{anime_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
+							</a>
+
+							<div class="card-body">
+								<h5 class="card-title">{{anime_list[i].getTitle}}</h5>
+								<div class="d-flex flex-row bd-highlight align-items-center mb-3">
+
+
+									<a href="#" class="btn btn-warning">
+										{{(anime_list[i].startDate) ? anime_list[i].startDate : "not start"}}
+
+
+									</a>
+
+								</div>
+							</div>
+
+
+						</div>
+					{% endfor %}
+				</div>
+
+
+			</div>
+
+
+		</div>
+
+		<div class="col-12 col-md-6 col-xl-6">
+			<div class="container-md">
+
+				<div class="row mx-auto">
+
+					<h2 class="title text-center">Manga top</h2>
+					{% for i in 0..10 %}
+						<div class="card w-15 mt-2 col-xl-3 col-md-6 col-sm-6">
+
+							<a href="manga/show?id={{manga_list[i].malId}}">
+								<img src="{{manga_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
+							</a>
+
+							<div class="card-body">
+								<h5 class="card-title">{{manga_list[i].getTitle}}</h5>
+								<div class="d-flex flex-row bd-highlight align-items-center mb-3">
+
+
+									<a href="#" class="btn btn-warning">
+										{{(manga_list[i].startDate) ? manga_list[i].startDate : "not start"}}
+
+
+									</a>
+
+								</div>
+							</div>
+
+
+						</div>
+					{% endfor %}
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
 {% endblock %}

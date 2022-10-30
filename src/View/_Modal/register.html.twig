@@ -1,0 +1,47 @@
+<div class="modal fade" id="Modal_register" tabindex="-1" aria-labelledby="Modal_delete_users" aria-hidden="true">
+
+
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="title text-center">register user</h5>
+
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="/register_successfull" method="post">
+					<div class="form-floating mb-3">
+						<input type="name" value="{{user.name}}" name="name" class="form-control" id="floatingInput" placeholder="enter your name">
+
+
+						<label for="floatingInput">Name</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="password" value="{{user.password}}" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+
+						<label for="floatingPassword">Password</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="email" value="{{user.mail}}" name="mail" class="form-control" id="floatingEmail" placeholder="Email">
+
+
+						<label for="floatingEmail">Email</label>
+					</div>
+					<input type="hidden" name="id" value="{{ user.id }}">
+
+
+					<div class="d-grid">
+
+						<button class="btn btn-warning btn-login text-uppercase fw-bold" type="submit">Register
+																																																																																																																																																																																																														                  in</button>
+					</div>
+				</form>
+
+
+			</div>
+
+
+			<div class="modal-footer"></div>
+		</div>
+	</div>
+</div>

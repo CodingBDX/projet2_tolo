@@ -1,0 +1,51 @@
+<div class="modal fade" id="Modal_login" tabindex="-1" aria-labelledby="Modal_delete_users" aria-hidden="true">
+
+
+	<div class="modal-dialog ">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="title text-center">login user</h5>
+
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="/member/login" method="post">
+					<div class="form-floating mb-3">
+						<input type="email" value="{{user.mail}}" name="mail" class="form-control" id="floatingInput" placeholder="name@example.com">
+
+						<label for="floatingInput">Email address</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="password" value="{{user.password}}" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+
+						<label for="floatingPassword">Password</label>
+					</div>
+					<input type="hidden" name="id" value="{{user.id}}">
+
+					<pre>
+    {{ dump(user.id) }}
+</pre>
+					<div class="form-check mb-3">
+						<input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+						<label class="form-check-label" for="rememberPasswordCheck">
+							Remember password
+						</label>
+					</div>
+					<div class="d-grid">
+						<button class="btn btn-warning btn-login text-uppercase fw-bold" type="submit">Sign
+																																																																																							                  in</button>
+					</div>
+					<p>{{message}}</p>
+				</form>
+
+
+			</div>
+
+
+			<div class="modal-footer">
+				<a class="underlineHover" href="#">Forgot Password?</a>
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -33,10 +33,17 @@ create table users
     name     varchar(100) not null,
     password varchar(100) not null,
     mail     varchar(255) not null,
-    isAdmin  tinyint(1)   not null
-);
+    isAdmin  tinyint(1)   not null,
 
-INSERT INTO users (`name`, `password`, `mail`, `isAdmin`) VALUES ('test2','test2','der1@defr.fr',false);
+
+);
+ALTER TABLE users
+ADD COLUMN `date` DATE  DEFAULT GETDATE();
+
+ALTER TABLE users
+ADD date DATETIME;
+
+INSERT INTO users (`name`, `password`, `mail`, `isAdmin`) VALUES ('admin','admin','der1@defr.fr',true);
 create table comments
 (
     id          int auto_increment

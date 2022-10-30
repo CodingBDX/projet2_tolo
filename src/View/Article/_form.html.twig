@@ -1,0 +1,33 @@
+{# TODO : manage errors display #}
+<div class="container-fluid row">
+	<form method="post" enctype="multipart/form-data">
+		<div class="row">
+			<label for="title" class="title">Title</label>
+			<input type="text" value="{{ article.title }}" name="title" class="btn btn-warning" id="title" placeholder="enter your title">
+		</div>
+		<div class="row">
+
+			<label for="imageUpload" class="title">Upload an profile image</label>
+
+			<input type="file" class="btn btn-warning" value="{{ article.picture }}" name="picture"/>
+		</div>
+		<div class="row">
+
+			<label for="title" class="title">Content</label>
+
+			<textarea value="{{ article.content }}" name="content" id="tiny" cols="30" rows="10"></textarea>
+		</div>
+
+		<button class="btn btn-warning m-2">Submit an article</button>
+	</form>
+</div>
+
+
+{% block javascript %}
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script>
+		tinymce.init({selector: 'textarea#tiny'});
+	</script>
+
+
+{% endblock %}

@@ -7,16 +7,25 @@
 //          3. (optional) array of query string keys to send as parameter to the method
 // e.g route '/item/edit?id=1' will execute $itemController->edit(1)
 return [
-    '' => ['HomeController', 'index'],
-    'items' => ['ItemController', 'index'],
+    'home' => ['HomeController', 'index'],
+    // admin controller
+    'admin/all_users' => ['UserController', 'all_users'],
+    'admin/delete_user' => ['UserController', 'delete'],
 
-    'admin/all_users' => ['UserController', 'index'],
-    'admin/delete' => ['UserController', 'delete'],
+    // user controller
+    'register_successfull' => ['UserController', 'add'],
+    'member/user_profile' => ['UserController', 'show_profile_user', ['id']],
+    'member/edit_profile' => ['UserController', 'edit', ['id']],
+    'member/login' => ['UserController', 'login_user', ['id']],
 
-    'items/edit' => ['ItemController', 'edit', ['id']],
-    'items/show' => ['ItemController', 'show', ['id']],
-    'items/add' => ['ItemController', 'add'],
-    'items/delete' => ['ItemController', 'delete'],
+    // article controller
+    'articles' => ['ArticleController', 'index'],
+    'articles/edit' => ['ArticleController', 'edit', ['id']],
+    'articles/show' => ['ArticleController', 'show', ['id']],
+    'articles/add' => ['ArticleController', 'add'],
+    'articles/delete' => ['ArticleController', 'delete'],
+
+    // manga and anime controller
     'manga' => ['MangaController', 'listManga'],
 
     'anime' => ['AnimeController', 'listAnime'],

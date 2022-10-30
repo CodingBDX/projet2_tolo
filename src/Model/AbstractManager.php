@@ -2,7 +2,6 @@
 
 namespace App\Model;
 
-use App\Model\Connection;
 use PDO;
 
 /**
@@ -10,9 +9,8 @@ use PDO;
  */
 abstract class AbstractManager
 {
-    protected PDO $pdo;
-
     public const TABLE = '';
+    protected PDO $pdo;
 
     public function __construct()
     {
@@ -25,9 +23,9 @@ abstract class AbstractManager
      */
     public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
     {
-        $query = 'SELECT * FROM ' . static::TABLE;
+        $query = 'SELECT * FROM '.static::TABLE;
         if ($orderBy) {
-            $query .= ' ORDER BY ' . $orderBy . ' ' . $direction;
+            $query .= ' ORDER BY '.$orderBy.' '.$direction;
         }
 
         return $this->pdo->query($query)->fetchAll();
@@ -36,10 +34,10 @@ abstract class AbstractManager
     /**
      * Get one row from database by ID.
      */
-    public function selectOneById(int $id): array|false
+    public function selectOneById(string $id): array|false
     {
         // prepared request
-        $statement = $this->pdo->prepare("SELECT * FROM " . static::TABLE . " WHERE id=:id");
+        $statement = $this->pdo->prepare('SELECT * FROM '.static::TABLE.' WHERE id=:id');
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
 
@@ -47,12 +45,12 @@ abstract class AbstractManager
     }
 
     /**
-     * Delete row form an ID
+     * Delete row form an ID.
      */
     public function delete(int $id): void
     {
         // prepared request
-        $statement = $this->pdo->prepare("DELETE FROM " . static::TABLE . " WHERE id=:id");
+        $statement = $this->pdo->prepare('DELETE FROM '.static::TABLE.' WHERE id=:id');
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
     }

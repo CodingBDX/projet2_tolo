@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+{% block title %}
+	{{parent()}}:{{article.title}}
+{% endblock %}
+
+{% block content %}
+	<h1>Articles
+		{{ article.title }}</h1>
+	<p>{{ item.id }}.
+		{{ item.title }}</p>
+	<a href="/articles/edit?id={{ item.id }}">Edit</a>
+	<form action="/articles/delete" method="POST">
+		<input type="hidden" name="id" value="{{ item.id }}">
+		<button>Delete</button>
+	</form>
+
+
+	<div class="container-md mt-4">
+		<div class="title container-fluid p-2">
+			<h1 class="text-center mb-4 display-1">{{block('title')}}</h1>
+		</div>
+		<div class="row mx-auto">
+
+
+			{% for i in 0..20 %}
+				<div class="card w-15 mt-2 col-xl-2 col-md-3 col-sm-6">
+
+					<a href="anime/show?id={{anime_list[i].malId}}">
+						<img src="{{anime_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
+					</a>
+
+					<div class="card-body">
+						<h5 class="card-title">{{anime_list[i].getTitle}}</h5>
+						<div class="d-flex flex-row bd-highlight align-items-center mb-3">
+
+
+							<a href="#" class="btn btn-warning">
+								{{(anime_list[i].startDate) ? anime_list[i].startDate : "not start"}}
+
+
+							</a>
+							❤️
+						</div>
+					</div>
+
+
+				</div>
+			{% endfor %}
+		</div>
+
+
+	</div>
+
+
+{% endblock %}

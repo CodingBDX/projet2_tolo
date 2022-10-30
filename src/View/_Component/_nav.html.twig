@@ -1,4 +1,4 @@
-<div class="d-none d-md-block d-xl-block background-ws-dark d-flex flex-column rounded flex-shrink-0 p-3 w-100">
+<div class="sticky-top d-none d-md-block d-xl-block background-ws-dark d-flex flex-column rounded flex-shrink-0 p-3 w-100">
 
 
 	<a href="/" class="d-flex align-items-center h2  mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
@@ -8,25 +8,114 @@
 	<hr>
 	<ul class="nav  flex-column mb-auto background-ws-light">
 		<li class="nav-item">
-			<a href="#" class="nav-link btn-warning text-light active" aria-current="page">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+			<a href="/home" class="nav-link btn-warning text-light active" aria-current="page">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="boostrap-icons.svg#home"/></svg>
+				<i class="bi-alarm"></i>
+
 				Home
+
 			</a>
 		</li>
 		<li>
-			<a href="#" class="nav-link link-dark">
+			<a href="/anime" class="nav-link link-dark">
 				<svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
 				Anime
 			</a>
 		</li>
 		<li>
-			<a href="#" class="nav-link link-dark">
+			<a href="/manga" class="nav-link link-dark">
 				<svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
 				Manga
+			</a>
+		</li>
+		<li>
+			<a href="/articles" class="nav-link link-dark">
+				<svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+				Articles
 			</a>
 		</li>
 
 
 	</ul>
 	<hr>
+
+	{# search bar #}
+	<div class="background-ws-light p-2">
+
+		<form class="d-flex" role="search">
+			<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+		</form>
+
+		<div class="overflow-scroll  title mt-2 p-2  background-ws-dark rounded" style="max-height:7em">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<label class="form-check-label" for="flexCheckDefault">
+					Anime
+				</label>
+			</div>
+
+			<div class="form-check">
+
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<label class="form-check-label" for="flexCheckDefault">
+					Manga
+				</label>
+			</div>
+
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<label class="form-check-label" for="flexCheckDefault">
+					Default checkbox
+				</label>
+			</div>
+
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<label class="form-check-label" for="flexCheckDefault">
+					Default checkbox
+				</label>
+			</div>
+
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<label class="form-check-label" for="flexCheckDefault">
+					Default checkbox
+				</label>
+			</div>
+		</div>
+		<div class="d-flex flex-column">
+
+			<button class=" btn btn-warning mt-2" type="submit">Search</button>
+		</div>
+		<p class="title mt-2">status</p>
+		<div class="d-flex flex-row">
+
+
+			<div class="col-6">
+				<div class="form-check">
+
+					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+					<label class="form-check-label text-light" for="flexCheckDefault">
+						finish
+					</label>
+				</div>
+
+			</div>
+			<div class="col-6">
+				<div class="form-check">
+
+					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+					<label class="form-check-label text-light" for="flexCheckDefault">
+
+						on going
+					</label>
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+
+
 </div>
