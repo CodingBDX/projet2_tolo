@@ -1,0 +1,15 @@
+<h2 class="text-center title">Streaming episodes</h2>
+<ul class="list-group m-2 overflow-scroll" style="max-height:8em">
+	{% for i in 0..100 %}
+		<li class="list-group-item   background-ws-dark">
+
+			<a class="text-light" href="{{ episode[i].getUrl }}" target="_blank">
+
+
+				{{ episode[i].getTitle }}</a>
+
+		</li>
+
+	{% endfor %}
+
+</ul>

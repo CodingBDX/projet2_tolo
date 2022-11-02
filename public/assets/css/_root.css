@@ -18,6 +18,41 @@
             rgba(255, 255, 255, 0));
 }
 
+.popup {
+    z-index: 99;
+}
+
+.cookie {
+    z-index: 100;
+}
+
+.sidebar {
+    z-index: 88;
+}
+
+.swipe-menu {
+    --n: 1;
+    display: flex;
+    align-items: center;
+    overflow-y: hidden;
+    width: 100%;
+    width: calc(var(--n)*100%);
+    height: 50vw;
+    max-height: 100vh;
+    transform: translate(calc(var(--tx, 0px) + var(--i, 0)/var(--n)*-100%));
+
+
+}
+
+.swipe-menu input {
+
+    font-size: 2em;
+}
+
+.smooth {
+    transition: transform calc(var(--f, 1) * 0.5s) cubic-bezier(1, 1.59, 0.61, 0.74);
+}
+
 .btn-warning {
     background-color: var(--bs-title);
 }
@@ -47,7 +82,8 @@ body {
     position: relative;
     background: radial-gradient(ellipse at center, #ffeeac 0%, #E4D3B5 100%);
     height: 100%;
-    width: 100%
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .paperOverlay {

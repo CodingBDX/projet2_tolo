@@ -1,0 +1,28 @@
+<div>
+
+
+	<span class="container-fluid cookie  position-fixed bg-body title rounded px-2  py-2 m-2 bottom-0 ">
+		<button type="button" class="btn-close top-0"></button>
+
+		<hr>
+		<h3 class="text-center">Cookie|privacy</h3>
+
+		<p class="text-center mx-4 pb-2">This website uses cookies to ensure you get the best experience on our website.
+		</p>
+		<hr>
+		<div class="row text-center">
+			<div class="col-6">
+				<button class="btn btn-warning  bottom-0  mt-2">Accept</button>
+			</div>
+			<div class="col-6">
+				<button class="btn btn-warning  bottom-0  mt-2">Refus</button>
+			</div>
+
+		</div>
+	</span>
+</div>
+{% block javascript %}
+	<script src="{{ ROOT_URL }}/assets/js/cookie.js"></script>
+
+
+{% endblock %}

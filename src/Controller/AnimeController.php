@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Model\ArticleManager;
 use Jikan\MyAnimeList\MalClient;
 use Jikan\Request\Anime\AnimeNewsRequest;
 use Jikan\Request\Anime\AnimeRequest;
+use Jikan\Request\Search\AnimeSearchRequest;
 use Jikan\Request\Top\TopAnimeRequest;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 
 class AnimeController extends AbstractController
 {
@@ -18,7 +22,25 @@ class AnimeController extends AbstractController
         $topAnime = $apiAnime->getTopAnime(new TopAnimeRequest(1, 'tv'));
         $result = $topAnime->getResults();
 
-        return $this->twig->render('Anime/anime.html.twig', ['anime_list' => $result]);
+        $adapter = new ArrayAdapter($result);
+        $pagerfanta = new Pagerfanta($adapter);
+
+        $maxPerPage = $pagerfanta->getMaxPerPage();
+        $pagerfanta->setMaxPerPage($maxPerPage); // 10 by default
+
+        $currentPage = $pagerfanta->getCurrentPage();
+        $pagerfanta->setCurrentPage($currentPage); // 1 by default
+
+        $nbResults = $pagerfanta->getNbResults();
+        $currentPageResults = $pagerfanta->getCurrentPageResults();
+
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->selectAll('title');
+
+        return $this->twig->render('Anime/anime.html.twig', ['anime_list' => $result,
+            'pagination' => $currentPageResults,
+            'article' => $articles,
+        ]);
     }
 
      public function showAnimeMoreInfo(int $malId): string
@@ -27,7 +49,26 @@ class AnimeController extends AbstractController
 
          $data = $apiAnime->getAnime(new AnimeRequest($malId));
 
-         return $this->twig->render('Anime/show.html.twig', ['anime_show' => $data]);
+         $videos = $apiAnime->getAnimeVideos(
+             new \Jikan\Request\Anime\AnimeVideosRequest($malId)
+         );
+
+         // Streamable Episodes
+         $episodes = $videos->getEpisodes();
+
+         return $this->twig->render('Anime/show.html.twig', ['anime_show' => $data,
+             'episode' => $episodes,
+         ]);
+     }
+
+     public function searchAnime($query): ?string
+     {
+         $apiAnime = new MalClient();
+
+         $animeSearchResults = $apiAnime->getAnimeSearch(new AnimeSearchRequest((string) $query));
+
+         return $this->twig->render('Anime/search.html.twig', ['anime_search' => $animeSearchResults,
+             'found' => $query, ]);
      }
 
      public function animeNews(): string

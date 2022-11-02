@@ -7,7 +7,7 @@
 //          3. (optional) array of query string keys to send as parameter to the method
 // e.g route '/item/edit?id=1' will execute $itemController->edit(1)
 return [
-    'home' => ['HomeController', 'index'],
+    '' => ['HomeController', 'index'],
     // admin controller
     'admin/all_users' => ['UserController', 'all_users'],
     'admin/delete_user' => ['UserController', 'delete'],
@@ -16,7 +16,6 @@ return [
     'register_successfull' => ['UserController', 'add'],
     'member/user_profile' => ['UserController', 'show_profile_user', ['id']],
     'member/edit_profile' => ['UserController', 'edit', ['id']],
-    'member/login' => ['UserController', 'login_user', ['id']],
 
     // article controller
     'articles' => ['ArticleController', 'index'],
@@ -29,9 +28,8 @@ return [
     'manga' => ['MangaController', 'listManga'],
 
     'anime' => ['AnimeController', 'listAnime'],
+    'anime/search' => ['AnimeController', 'searchAnime', ['query']],
 
     'anime/show' => ['AnimeController', 'showAnimeMoreInfo', ['id']],
     'manga/show' => ['MangaController', 'showMangaMoreInfo', ['id']],
-
-    'top' => ['TopController', 'getTop'],
 ];

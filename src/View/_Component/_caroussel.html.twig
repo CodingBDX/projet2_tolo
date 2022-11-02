@@ -8,12 +8,17 @@
 					<div class="carousel-item active">
 						<div class="col-12 col-md-4 col-xl-2">
 							<div class="card">
-								<img src="{{result[0].getImages}}" class="card-img-top" alt="..." style="height:20em;">
+								<img src="{{article[0].picture}}" class="card-img-top" alt="..." style="height:20em;">
+
 
 								<div class="card-body">
-									<h2 class="card-title">{{article.title[0]}}</h2>
-									<p class="card-text text-light">{{article.content}}</p>
-									<a href="/articles/show?id={{ article.id[0] }}" class="btn btn-warning">Go to Article</a>
+									<h2 class="card-title">{{ article[0].title|striptags|length > 12 ? article[0].title|striptags|slice(0, 12) ~ '...' : article[0].title|striptags }}</h2>
+
+
+									<p class="card-text text-light">{{ article[0].content|striptags|length > 100 ? article[0].content|striptags|slice(0, 100) ~ '...' : article[0].content|striptags }}</p>
+
+
+									<a href="/articles/show?id={{ article[0].id }}" class="btn btn-warning">Go to Article</a>
 
 
 								</div>
@@ -23,17 +28,19 @@
 					</div>
 
 
-					{% for i in 0..10 %}
+					{% for i in 1..6 %}
 						<div class="carousel-item">
 							<div class="col-12 col-md-4 col-xl-2">
 
 								<div class="card">
-									<img src="{{article.picture[i]}}" class="card-img-top" alt="..." style="height:20em;">
+									<img src="{{article[i].picture}}" class="card-img-top" alt="..." style="height:20em;">
 									<div class="card-body">
-										<h2 class="card-title">{{article.title[i]}}</h2>
+										<h2 class="card-title">{{ article[i].title|striptags|length > 12 ? article[i].title|striptags|slice(0, 12) ~ '...' : article[i].title|striptags }}</h2>
 
-										<p class="card-text text-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-										<a href="/articles/show?id={{ article.id[i] }}" class="btn btn-warning">Go to Article</a>
+
+										<p class="card-text text-light">{{ article[i].content|striptags|length > 100 ? article[i].content|striptags|slice(0, 100) ~ '...' : article[i].content|striptags }}</p>
+
+										<a href="/articles/show?id={{ article[0].id }}" class="btn btn-warning">Go to Article</a>
 
 
 									</div>

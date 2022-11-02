@@ -13,6 +13,19 @@ create table articles
     date    varchar(80)  null
 );
 
+select * from articles;
+SELECT now();
+SELECT title AS supertitle,count(content) AS supercontent
+FROM articles
+GROUP BY id,content
+HAVING id>3
+ORDER BY title DESC;
+
+
+DELETE FROM articles
+where id='2';
+INSERT INTO articles (`title`, `content`, `author`, `picture`) VALUES ('nicki larson lover','un super content qui depasse largement les 100 characteres, est ce que cela va s arreter au bonne endroit, mystere et boulle de chewingum ou l expression que vous voulez','jean le roi','https://cdn-elle.ladmedia.fr/var/plain_site/storage/images/loisirs/series/nicky-larson-albator-cobra-les-fantasmes-mangas-secrets-de-notre-enfance-4019152/96621935-1-fre-FR/Nicky-Larson-Albator-Cobra-les-fantasmes-mangas-secrets-de-notre-enfance.jpg');
+
 create table articles_categories
 (
     articles_id   int not null,
@@ -38,12 +51,12 @@ create table users
 
 );
 ALTER TABLE users
-ADD COLUMN `date` DATE  DEFAULT GETDATE();
+ADD COLUMN user_date DATETIME DEFAULT CURRENT_TIMESTAMP;
 
 ALTER TABLE users
 ADD date DATETIME;
 
-INSERT INTO users (`name`, `password`, `mail`, `isAdmin`) VALUES ('admin','admin','der1@defr.fr',true);
+INSERT INTO users (`id`,`name`, `password`, `mail`, `isAdmin`) VALUES (1,'admin','admin','der1@defr.fr',true);
 create table comments
 (
     id          int auto_increment
@@ -56,5 +69,10 @@ create table comments
     constraint comments_users
         foreign key (users_id) references users (id)
 );
+
+
+
+
+
 
 

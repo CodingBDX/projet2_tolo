@@ -58,7 +58,7 @@ class UserManager extends AbstractManager
              return $statement->execute();
          }
 
-          public function isLogin(array $user): int
+          public function isLogin(string|array $user): int
           {
               $statement = $this->pdo->prepare('SELECT * FROM '.self::TABLE.' WHERE mail=:mail AND password=:password');
 
@@ -66,9 +66,7 @@ class UserManager extends AbstractManager
 
               $statement->bindValue('password', $user['password'], PDO::PARAM_STR);
 
-              $statement->execute();
-
-              return $statement->fetchAll();
+              return $statement->execute();
               //   return (int) $this->pdo->lastInsertId();
           }
 }

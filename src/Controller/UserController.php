@@ -21,8 +21,10 @@ class UserController extends AbstractController
         public function delete(): void
         {
             if ('POST' === $_SERVER['REQUEST_METHOD']) {
-                $id = trim($_POST['id']);
+                $id = trim($_POST['user_id']);
                 $userManager = new UserManager();
+                $userManager->selectOneById($id);
+
                 $userManager->delete((int) $id);
 
                 header('Location:/admin/all_users');
@@ -52,23 +54,31 @@ class UserController extends AbstractController
          {
              $userManager = new UserManager();
              $user_profile = $userManager->selectOneById($id);
+             if ('GET' === $_SERVER['REQUEST_METHOD']) {
+                 //  init session
+                 $session = new Session();
 
-             //  init session
-             $session = new Session();
+                 $session->write('id', $_GET['id']);
+                 setcookie('user_id', $_GET['id'], time() + 3600, '/');
 
-             $session->write('id', $user_profile['id']);
+                 setcookie('user_mail', $user_profile['mail'], time() + 3600, '/');
 
-             $session->write('mail', $user_profile['mail']);
-             $session->write('password', $user_profile['password']);
-             // end init session
+                 $session->write('mail', $user_profile['mail']);
+                 //  $session->write('password', $_GET['password']);
+                 // end init session
 
-             return $this->twig->render(
-                 'Member/user_profile.html.twig',
-                 [
-                     'user' => $user_profile,
-                     'session' => $session,
-                 ]
-             );
+                 return $this->twig->render(
+                     'Member/user_profile.html.twig',
+                     [
+                         'user' => $user_profile,
+                         'session' => $session,
+                     ]
+                 );
+             }
+
+             header('Location: /member/user_profile?id='.$id);
+
+             return 'error';
          }
 
     /**
@@ -97,28 +107,5 @@ class UserController extends AbstractController
         return $this->twig->render('member/user_profile.html.twig', [
             'user' => $user,
         ]);
-    }
-
-    public function login_user(string $id): ?string
-    {
-        if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            // clean $_POST data
-            $user = array_map('trim', $_POST);
-
-            // TODO validations (length, format...)
-
-            // if validation is ok, insert and redirection
-            $userManager = new UserManager();
-            $login = $userManager->isLogin($user);
-            $login->selectOneById($id);
-            header('Location:/member/user_profile?id='.$id);
-
-            return null;
-        }
-
-        $message = 'error identification';
-
-        return $this->twig->render('_Modal/login.html.twig', ['message' => $message,
-            'user' => $user, ]);
     }
 }

@@ -1,0 +1,77 @@
+{% extends "layout.html.twig" %}
+{% block title %}
+	{{parent()}}:Anime - List
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid mt-4">
+
+		<div class="card background-ws-dark">
+			<div class="container-fluid">
+
+				<div class="row">
+
+					<h2 class="title text-center display-1">Search:
+						{{found}}</h2>
+					<pre>
+{{ dump(anime_search.results[0].startDate['date']) }}
+
+                        </pre>
+					{% for i in 0..29 %}
+						<div class="card mt-2 col-xl-2 col-md-6 col-sm-6">
+							<div class="d-fluid">
+
+								<div class="row">
+
+									<div class="col-6 col-md-12 col-xl-12">
+										<input type="hidden" class="btn btn-primary position-relative">
+
+											<span class="position-absolute top-20 start-20 translate-middle title p-2 mt-4  background-ws-light  rounded-circle">{{anime_search.results[i].score}}</span>
+
+										</input>
+
+
+										<a href="show?id={{anime_search.results[i].malId}}" data-toggle="tooltip" data-placement="top" title="{{ anime_search.results[i].getTitle}}">
+											<img src="{{anime_search.results[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
+										</a>
+									</div>
+									<div class="col-6 col-md-12 col-xl-12">
+
+										<div class="card-body">
+											<h5 class="card-title">{{ anime_search.results[i].getTitle|striptags|length > 5 ? anime_search.results[i].getTitle|striptags|slice(0, 5) ~ '...' : anime_search.results[i].getTitle|striptags }}</h5>
+
+
+											<div class="d-flex flex-row bd-highlight align-items-center mb-3">
+
+												<div class="row">
+													<a href="#" class="btn btn-warning">
+														{{(anime_search.results.startDate[i].date) ? anime_search.results.startDate[i].date : "not start"}}
+
+
+													</a>
+													<a href="#" class="btn btn-warning mt-2">Episodes:
+														{{(anime_search.results[i].getEpisodes) ? anime_search.results[i].getEpisodes: "no..."}}
+
+
+													</a>
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+{% endblock %}
