@@ -21,7 +21,7 @@ class UserController extends AbstractController
         public function delete(): void
         {
             if ('POST' === $_SERVER['REQUEST_METHOD']) {
-                $id = trim($_POST['user_id']);
+                $id = trim($_POST['user.id']);
                 $userManager = new UserManager();
                 $userManager->selectOneById($id);
 
@@ -50,6 +50,18 @@ class UserController extends AbstractController
             return $this->twig->render('_Modal/register.html.twig');
         }
 
+        public function isLogout(): void
+        {
+            if ('POST' === $_SERVER['REQUEST_METHOD']) {
+                // //  init session
+                $session = new Session();
+
+                $session->delete('mail');
+
+                header('Location:/');
+            }
+        }
+
          public function show_profile_user(string $id): string
          {
              $userManager = new UserManager();
@@ -59,19 +71,17 @@ class UserController extends AbstractController
                  $session = new Session();
 
                  $session->write('id', $_GET['id']);
-                 setcookie('user_id', $_GET['id'], time() + 3600, '/');
-
-                 setcookie('user_mail', $user_profile['mail'], time() + 3600, '/');
-
                  $session->write('mail', $user_profile['mail']);
-                 //  $session->write('password', $_GET['password']);
-                 // end init session
+
+                 //  setcookie('user_id', $_GET['id'], time() + 3600, '/');
+
+                 //  setcookie('user_mail', $user_profile['mail'], time() + 3600, '/');
 
                  return $this->twig->render(
                      'Member/user_profile.html.twig',
                      [
                          'user' => $user_profile,
-                         'session' => $session,
+                         'session' => $_SESSION,
                      ]
                  );
              }

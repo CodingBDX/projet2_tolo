@@ -10,12 +10,13 @@ return [
     '' => ['HomeController', 'index'],
     // admin controller
     'admin/all_users' => ['UserController', 'all_users'],
-    'admin/delete_user' => ['UserController', 'delete'],
+    'admin/delete_user' => ['UserController', 'delete', ['id']],
 
     // user controller
     'register_successfull' => ['UserController', 'add'],
     'member/user_profile' => ['UserController', 'show_profile_user', ['id']],
     'member/edit_profile' => ['UserController', 'edit', ['id']],
+    'member/is_logout' => ['UserController', 'isLogout'],
 
     // article controller
     'articles' => ['ArticleController', 'index'],

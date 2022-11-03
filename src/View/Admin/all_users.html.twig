@@ -3,7 +3,6 @@
 
 {% block content %}
 
-{% include "Admin/modal_delete_user.html.twig" with {'user': user} %}
 
 <table class="table  table-hover background-ws-dark">
 
@@ -20,6 +19,7 @@
 	</thead>
 	<tbody>
 		{% for user in users %}
+			{% include "Admin/modal_delete_user.html.twig" %}
 
 			<tr class="text-light">
 				<th scope="row">{{user.id}}</th>
@@ -34,16 +34,16 @@
 				</td>
 				<td>
 
-					<form action="/admin/delete?id={{user.id}}" method="POST">
-						<input type="hidden" name="user.id" value="{{user.id}}">
 
-						<button type="button" class="btn btn-danger title" data-bs-toggle="modal" data-bs-target="#Modal_delete_users">
-							⚰️Delete
+					<a href="{{id}}" name="user.id" value="{{id}}" class="btn btn-danger title" data-bs-toggle="modal" data-bs-target=" #Modal_delete_users">
 
-						</button>
-					</td>
+
+						⚰️Delete
+
+					</a>
+
 				</td>
 			</tr>
-		</form>
+		</td>
 	</tbody>
 </td></tbody></tr></td></tbody></tr>{% endfor %}</tbody></table>{% endblock %}

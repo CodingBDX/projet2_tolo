@@ -10,7 +10,7 @@ use PDO;
 class UserManager extends AbstractManager
 {
     public const TABLE = 'users';
-    protected PDO $pdo;
+    protected \PDO $pdo;
 
     public function __construct()
     {
@@ -18,28 +18,19 @@ class UserManager extends AbstractManager
         $this->pdo = $connection->getConnection();
     }
 
-    /**
-     * Get all row from database.
-     */
-    public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
-    {
-        $query = 'SELECT * FROM '.static::TABLE;
-        if ($orderBy) {
-            $query .= ' ORDER BY '.$orderBy.' '.$direction;
-        }
-
-        return $this->pdo->query($query)->fetchAll();
-    }
+     /**
+      * Get all row from database.
+      */
 
     // register user
      public function insert(array $user): int
      {
          $statement = $this->pdo->prepare('INSERT INTO '.self::TABLE.' (`name`, `password`, `mail`) VALUES (:name,:password,:mail)');
-         $statement->bindValue('name', $user['name'], PDO::PARAM_STR);
+         $statement->bindValue('name', $user['name'], \PDO::PARAM_STR);
 
-         $statement->bindValue('password', $user['password'], PDO::PARAM_STR);
+         $statement->bindValue('password', $user['password'], \PDO::PARAM_STR);
 
-         $statement->bindValue('mail', $user['mail'], PDO::PARAM_STR);
+         $statement->bindValue('mail', $user['mail'], \PDO::PARAM_STR);
 
          $statement->execute();
 
@@ -49,11 +40,11 @@ class UserManager extends AbstractManager
          public function update(array $user): bool
          {
              $statement = $this->pdo->prepare('UPDATE '.self::TABLE.' SET `name` = :name, `password` = :password, `mail` = :mail WHERE id=:id');
-             $statement->bindValue('id', $user['id'], PDO::PARAM_INT);
-             $statement->bindValue('name', $user['name'], PDO::PARAM_STR);
+             $statement->bindValue('id', $user['id'], \PDO::PARAM_INT);
+             $statement->bindValue('name', $user['name'], \PDO::PARAM_STR);
 
-             $statement->bindValue('password', $user['password'], PDO::PARAM_STR);
-             $statement->bindValue('mail', $user['mail'], PDO::PARAM_STR);
+             $statement->bindValue('password', $user['password'], \PDO::PARAM_STR);
+             $statement->bindValue('mail', $user['mail'], \PDO::PARAM_STR);
 
              return $statement->execute();
          }
@@ -62,9 +53,9 @@ class UserManager extends AbstractManager
           {
               $statement = $this->pdo->prepare('SELECT * FROM '.self::TABLE.' WHERE mail=:mail AND password=:password');
 
-              $statement->bindValue('mail', $user['mail'], PDO::PARAM_STR);
+              $statement->bindValue('mail', $user['mail'], \PDO::PARAM_STR);
 
-              $statement->bindValue('password', $user['password'], PDO::PARAM_STR);
+              $statement->bindValue('password', $user['password'], \PDO::PARAM_STR);
 
               return $statement->execute();
               //   return (int) $this->pdo->lastInsertId();
