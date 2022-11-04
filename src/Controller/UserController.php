@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Model\Session;
 use App\Model\UserManager;
+use Jikan\MyAnimeList\MalClient;
+use Jikan\Request\Anime\AnimeRequest;
+use Jikan\Request\Manga\MangaRequest;
 
 class UserController extends AbstractController
 {
@@ -64,24 +67,39 @@ class UserController extends AbstractController
 
          public function show_profile_user(string $id): string
          {
-             $userManager = new UserManager();
-             $user_profile = $userManager->selectOneById($id);
              if ('GET' === $_SERVER['REQUEST_METHOD']) {
                  //  init session
+
                  $session = new Session();
 
+                 $userManager = new UserManager();
+                 $user_profile = $userManager->selectOneById($id);
+
+                 $api = new MalClient();
+
+                 if (isset($_COOKIE['anime_like'])) {
+                     $animeCookie = $_COOKIE['anime_like'];
+                     $requestAnime = $api->getAnime(new AnimeRequest($animeCookie));
+                 } else {
+                     $requestAnime = 'bla';
+                 }
+                 if (isset($_COOKIE['manga_like'])) {
+                     $mangaCookie = $_COOKIE['manga_like'];
+                     $requestManga = $api->getManga(new MangaRequest($mangaCookie));
+                 } else {
+                     $requestManga = 'bla';
+                 }
                  $session->write('id', $_GET['id']);
                  $session->write('mail', $user_profile['mail']);
-
-                 //  setcookie('user_id', $_GET['id'], time() + 3600, '/');
-
-                 //  setcookie('user_mail', $user_profile['mail'], time() + 3600, '/');
+                 $session->write('name', $user_profile['name']);
 
                  return $this->twig->render(
                      'Member/user_profile.html.twig',
                      [
                          'user' => $user_profile,
                          'session' => $_SESSION,
+                         'anime_like' => $requestAnime,
+                         'manga_like' => $requestManga,
                      ]
                  );
              }
@@ -91,9 +109,26 @@ class UserController extends AbstractController
              return 'error';
          }
 
-    /**
-     * Edit a specific item.
-     */
+/**
+ * Edit a specific item.
+ */
+public function edit_avatar(int $id)
+{
+    if (isset($_POST['upload'])) {
+        $uploadDir = '/public/uploads/';
+
+        // le nom de fichier sur le serveur est celui du nom d'origine du fichier sur le poste du client (mais d'autres stratégies de nommage sont possibles)
+
+        $uploadFile = $uploadDir.basename($_FILES['uploadfile']['name']);
+
+        // on déplace le fichier temporaire vers le nouvel emplacement sur le serveur. Ça y est, le fichier est uploadé
+
+        move_uploaded_file($_FILES['uploadfile']['tmp_name'], $uploadFile);
+
+        header('Location: /member/user_profile?id='.$id);
+    }
+}
+
     public function edit(int $id): ?string
     {
         $userManager = new UserManager();

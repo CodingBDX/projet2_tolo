@@ -2,9 +2,6 @@
 
 namespace App\Model;
 
-/**
- * This class make a PDO object instanciation.
- */
 class Session
 {
     public static $instance;
@@ -48,7 +45,7 @@ class Session
 
     public function read($key)
     {
-        return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
+        isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }
 
     public function delete($key)

@@ -26,15 +26,20 @@
 
 										</input>
 
-										<input type="hidden" class="btn btn-primary position-relative">
-
-											<span class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle" id="like-anime">♥️</span>
+										<form action="{{ ROOT_URL }}/anime/like?id={{anime_list[i].malId}}" method="post">
 
 
-										</input>
+											<input type="hidden" class="btn btn-primary position-relative">
+
+												<button type="submit" class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle" id="like-anime">♥️</button>
 
 
-										<a href="anime/show?id={{anime_list[i].malId}}" data-toggle="tooltip" data-placement="top" title="{{ anime_list[i].getTitle}}">
+											</input>
+										</form>
+
+
+										<a href="{{ ROOT_URL }}/anime/show?id={{anime_list[i].malId}}" data-toggle="tooltip" data-placement="top" title="{{ anime_list[i].getTitle}}">
+
 											<img src="{{anime_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
 										</a>
 									</div>
@@ -99,18 +104,20 @@
 
 										</input>
 
-										<input type="hidden" class="btn btn-primary position-relative">
-
-											<a href="" id="like-anime">
-
-												<span class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle">♥️</span>
-											</a>
+										<form action="{{ ROOT_URL }}/manga/like?id={{manga_list[i].malId}}" method="post">
 
 
-										</input>
+											<input type="hidden" class="btn btn-primary position-relative">
+
+												<button type="submit" class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle" id="like-anime">♥️</button>
 
 
-										<a href="manga/show?id={{manga_list[i].malId}}" data-toggle="tooltip" data-placement="top" title="{{ manga_list[i].getTitle}}">
+											</input>
+										</form>
+
+
+										<a href="{{ ROOT_URL }}/manga/show?id={{manga_list[i].malId}}" data-toggle="tooltip" data-placement="top" title="{{ manga_list[i].getTitle}}">
+
 											<img src="{{manga_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
 										</a>
 									</div>

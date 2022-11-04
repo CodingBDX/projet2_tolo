@@ -7,6 +7,12 @@
 {% block content %}
 	{% include "_Component/_caroussel.html.twig" with {'article': article} %}
 
+	<form action="/page?id={{pager.currentPageResults[0]}}" method="post">
+
+		<button type="submit">click</button>
+
+	</form>
+	{% for i in items %}{% endfor %}
 	<div class="container-md mt-4">
 		<div class="title container-fluid p-2">
 			<h1 class="text-center mb-4 display-1">{{block('title')}}</h1>
@@ -17,22 +23,54 @@
 			{% for i in 0..47 %}
 				<div class="card w-15 mt-2 col-xl-2 col-md-3 col-sm-6">
 
-					<a href="anime/show?id={{anime_list[i].malId}}">
-						<img src="{{anime_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
-					</a>
+
+					<div class="col-6 col-md-12 col-xl-12">
+
+
+						<input type="hidden" class="btn btn-primary position-relative">
+
+							<span class="position-absolute top-20 start-20 translate-middle title p-2 mt-4  background-ws-light  rounded-circle">{{anime_list[i].getRank}}</span>
+
+						</input>
+
+						<form action="anime/like?id={{anime_list[i].malId}}" method="post">
+
+							<input type="hidden" class="btn btn-primary position-relative">
+
+								<button type="submit" class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle" id="like-anime">♥️</button>
+
+
+							</input>
+						</form>
+
+
+						<a href="anime/show?id={{anime_list[i].malId}}" data-toggle="tooltip" data-placement="top" title="{{ anime_list[i].getTitle}}">
+							<img src="{{anime_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
+						</a>
+					</div>
 
 					<div class="card-body">
-						<h5 class="card-title">{{anime_list[i].getTitle}}</h5>
+						<h5 class="card-title">{{ anime_list[i].getTitle|striptags|length > 5 ? anime_list[i].getTitle|striptags|slice(0, 5) ~ '...' : anime_list[i].getTitle|striptags }}</h5>
+
+
 						<div class="d-flex flex-row bd-highlight align-items-center mb-3">
 
+							<div class="row">
+								<a href="#" class="btn btn-warning">
+									{{(anime_list[i].startDate) ? anime_list[i].startDate : "not start"}}
 
-							<a href="#" class="btn btn-warning">
-								{{(anime_list[i].startDate) ? anime_list[i].startDate : "not start"}}
+
+								</a>
+								<a href="#" class="btn btn-warning mt-2">Volumes:
+									{{(anime_list[i].getVolumes) ? anime_list[i].getVolumes: "no..."}}
 
 
-							</a>
-							❤️
+								</a>
+
+							</div>
 						</div>
+
+
 					</div>
 
 

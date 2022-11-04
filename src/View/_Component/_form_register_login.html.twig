@@ -18,17 +18,20 @@
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle d-flex align-items-center text-light text-decoration-none" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-							<img src="https://github.com/mdo.png" alt="" width="52" height="52" class="rounded-circle me-2">
+							<img src="{{user.picture ? user.picture : '/assets/images/avatar_default.png'}}" alt="" width="52" height="52" class="rounded-circle me-2">
+
 							<strong>{{user.name}}</strong>
 
 						</a>
 						<ul class="dropdown-menu background-ws-dark title">
 							<li>
-								<a class="dropdown-item text-light" href="/member/user_profile?id={{user.id}}">Profile user</a>
+								<a class="dropdown-item text-light" href="{{ ROOT_URL }}/member/user_profile?id={{user.id}}">Profile user</a>
+
 
 							</li>
 							<li>
-								<form action="is_logout" method="POST">
+								<form action="{{ ROOT_URL }}/member/is_logout" method="POST">
+
 
 									<input type="submit" name="user_mail" value="logout" class="dropdown-item text-light">
 								</form>

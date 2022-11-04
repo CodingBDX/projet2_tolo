@@ -51,7 +51,7 @@ create table users
 
 );
 ALTER TABLE users
-ADD COLUMN user_date DATETIME DEFAULT CURRENT_TIMESTAMP;
+ADD COLUMN picture TEXT DEFAULT 'assets/img/default.png';
 
 ALTER TABLE users
 ADD date DATETIME;

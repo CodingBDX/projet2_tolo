@@ -17,6 +17,7 @@ return [
     'member/user_profile' => ['UserController', 'show_profile_user', ['id']],
     'member/edit_profile' => ['UserController', 'edit', ['id']],
     'member/is_logout' => ['UserController', 'isLogout'],
+    'member/edit_avatar' => ['UserController', 'edit_avatar', ['id']],
 
     // article controller
     'articles' => ['ArticleController', 'index'],
@@ -33,4 +34,8 @@ return [
 
     'anime/show' => ['AnimeController', 'showAnimeMoreInfo', ['id']],
     'manga/show' => ['MangaController', 'showMangaMoreInfo', ['id']],
+
+    // all likes
+    'anime/like' => ['HomeController', 'likeAnime', ['id']],
+    'manga/like' => ['HomeController', 'likeManga', ['id']],
 ];

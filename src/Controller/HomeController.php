@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
+use App\Model\Cookie;
 use App\Model\Session;
 use Jikan\MyAnimeList\MalClient;
 use Jikan\Request\Top\TopAnimeRequest;
@@ -16,7 +17,6 @@ class HomeController extends AbstractController
     public function index(): string
     {
         $session = new Session();
-
         $session->read('mail');
 
         $api = new MalClient();
@@ -35,4 +35,24 @@ class HomeController extends AbstractController
             'session' => $_SESSION,
         ]);
     }
+
+    public function likeAnime($id)
+    {
+        if ('POST' === $_SERVER['REQUEST_METHOD']) {
+            $cookie = new Cookie();
+            $cookie->setCookie('anime_like', $id);
+
+            header('Location: /');
+        }
+    }
+
+        public function likeManga($id)
+        {
+            if ('POST' === $_SERVER['REQUEST_METHOD']) {
+                $cookie = new Cookie();
+                $cookie->setCookie('manga_like', $id);
+
+                header('Location: /');
+            }
+        }
 }

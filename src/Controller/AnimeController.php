@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
+use App\Model\CommentsManager;
 use Jikan\MyAnimeList\MalClient;
 use Jikan\Request\Anime\AnimeNewsRequest;
 use Jikan\Request\Anime\AnimeRequest;
+use Jikan\Request\Anime\AnimeVideosRequest;
 use Jikan\Request\Search\AnimeSearchRequest;
 use Jikan\Request\Top\TopAnimeRequest;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -25,7 +27,7 @@ class AnimeController extends AbstractController
         $adapter = new ArrayAdapter($result);
         $pagerfanta = new Pagerfanta($adapter);
 
-        $maxPerPage = $pagerfanta->getMaxPerPage();
+        $maxPerPage = $pagerfanta->getMaxPerPage(5);
         $pagerfanta->setMaxPerPage($maxPerPage); // 10 by default
 
         $currentPage = $pagerfanta->getCurrentPage();
@@ -38,7 +40,9 @@ class AnimeController extends AbstractController
         $articles = $articleManager->selectAll('title');
 
         return $this->twig->render('Anime/anime.html.twig', ['anime_list' => $result,
-            'pagination' => $currentPageResults,
+            'totalPerPage' => $currentPageResults,
+            'total' => $nbResults,
+            'pager' => $pagerfanta,
             'article' => $articles,
         ]);
     }
@@ -50,14 +54,25 @@ class AnimeController extends AbstractController
          $data = $apiAnime->getAnime(new AnimeRequest($malId));
 
          $videos = $apiAnime->getAnimeVideos(
-             new \Jikan\Request\Anime\AnimeVideosRequest($malId)
+             new AnimeVideosRequest($malId)
          );
 
          // Streamable Episodes
          $episodes = $videos->getEpisodes();
 
+         $commentManager = new CommentsManager();
+         if ('POST' === $_SERVER['REQUEST_METHOD']) {
+             $userComment = $_POST['user_comment'];
+
+             $commentManager->addComment($userComment);
+             header('Location: /anime/show?id='.$malId);
+         }
+
+         $comments = $commentManager->selectAll('id');
+
          return $this->twig->render('Anime/show.html.twig', ['anime_show' => $data,
              'episode' => $episodes,
+             'comments' => $comments,
          ]);
      }
 

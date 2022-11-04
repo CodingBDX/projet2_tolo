@@ -13,10 +13,7 @@
 
 					<h2 class="title text-center display-1">Search:
 						{{found}}</h2>
-					<pre>
-{{ dump(anime_search.results[0].startDate['date']) }}
 
-                        </pre>
 					{% for i in 0..29 %}
 						<div class="card mt-2 col-xl-2 col-md-6 col-sm-6">
 							<div class="d-fluid">
@@ -29,6 +26,16 @@
 											<span class="position-absolute top-20 start-20 translate-middle title p-2 mt-4  background-ws-light  rounded-circle">{{anime_search.results[i].score}}</span>
 
 										</input>
+										<form action="{{ROOT_URL}}/anime/like?id={{anime_list[i].malId}}" method="post">
+
+
+											<input type="hidden" class="btn btn-primary position-relative">
+
+												<button type="submit" class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle" id="like-anime">♥️</button>
+
+
+											</input>
+										</form>
 
 
 										<a href="show?id={{anime_search.results[i].malId}}" data-toggle="tooltip" data-placement="top" title="{{ anime_search.results[i].getTitle}}">

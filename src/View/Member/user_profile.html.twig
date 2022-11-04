@@ -11,14 +11,17 @@
 
 
 				<div class="background-ws-light rounded p-2 image d-flex flex-column justify-content-center align-items-center">
-					<button class="btn btn-secondary">
-						<img src="https://i.imgur.com/wvxPV9S.png" class="rounded" height="100" width="100"/></button>
+					<button class="btn btn-warning rounded-circle">
+						<img src="{{user.picture ? user.picture : '/assets/images/avatar_default.png'}}" class="rounded" height="100" width="100"/></button>
 					<form action="/member/edit_profile?id={{user.id}}" method="post">
+
+
 						<input type="text" class="d-flex mt-3 title background-ws-dark btn btn-warning" value="{{user.name}}" name="name" placeholder="{{user.name}}">
 
 						<input type="text" class="d-flex mt-3 title background-ws-dark btn btn-warning" value="{{user.mail}}" name="mail" placeholder="{{user.mail}}">
 
 						<input type="text" class="d-flex mt-3 title background-ws-dark btn btn-warning" value="{{user.password}}" name="password" placeholder="{{user.password}}">
+
 
 						<input type="hidden" name="id" value="{{ user.id }}">
 
@@ -27,10 +30,21 @@
 							<button class="btn btn-warning text-light" type="submit">Save Modified Profile</button>
 						</div>
 					</form>
+					<div id="d-flex mt-2">
+						<form method="POST" action="/member/edit_avatar?id={{user.id}}" enctype="multipart/form-data">
+
+							<div class="form-group">
+								<input class="form-control title background-ws-dark mt-2" type="file" name="uploadfile" value=""/>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-warning mt-2" type="submit" name="upload">Upload avatar</button>
+							</div>
+						</form>
+					</div>
 
 					<div class=" px-2 rounded mt-4 date ">
 						<span class="title">Joined
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																			at
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												at
 							{{user.user_date|date("H:i")}}
 							the
 							{{user.user_date|date("Y M d")}}</span>
@@ -59,30 +73,71 @@
 						{% endif %}
 
 						<h3 class="title text-center">your favorite</h3>
-						{% for i in 0..20 %}
-							<div class="card w-15 mt-2 col-xl-2 col-md-3 col-sm-6">
 
-								<a href="manga/show?id={{manga_list[i].malId}}">
-									<img src="{{manga_list[i].getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
-								</a>
+						<div class="card w-15 mt-2 col-6">
+							<h4 class="title text-center">favorite anime</h4>
+							<a href="{{ ROOT_URL }}/manga/show?id={{anime_like.malId ? anime_like.malId : "no"}}">
 
-								<div class="card-body">
-									<h5 class="card-title">{{manga_list[i].getTitle}}</h5>
-									<div class="d-flex flex-row bd-highlight align-items-center mb-3">
 
+								<img src="{{anime_like.getImages ? anime_like.getImages : "/assets/images/anime_default.jpg"}}" class="card-img-top mt-2" alt="" style="height:15em">
+
+
+							</a>
+
+							<div class="card-body">
+								<h5 class="card-title">{{anime_like.getTitle ? anime_like.getTitle : 'not anime'}}</h5>
+								<div class="d-flex flex-row bd-highlight align-items-center mb-3">
+
+									{% if anime_like.getTitle != 'not anime'  %}
 
 										<a href="#" class="btn btn-warning">
-											{{(manga_list[i].startDate) ? manga_list[i].startDate : "not start"}}
+											delete anime
 
 
 										</a>
+										{% else %}
 
-									</div>
+									{% endif %}
+
 								</div>
-
-
 							</div>
-						{% endfor %}
+
+
+						</div>
+
+
+						<div class="card w-15 mt-2 col-6">
+							<h4 class="title text-center">favorite manga</h4>
+							<a href="{{ ROOT_URL }}/manga/show?id={{anime_like.malId}}">
+
+
+								<img src="{{manga_like.getImages}}" class="card-img-top mt-2" alt="..." style="height:15em">
+							</a>
+
+							<div class="card-body">
+								<h5 class="card-title">{{manga_like.getTitle ? manga_like.getTitle : "not manga"}}</h5>
+
+								<div class="d-flex flex-row bd-highlight align-items-center mb-3">
+
+
+									{% if manga_like.getTitle != 'not manga'  %}
+
+
+										<a href="#" class="btn btn-warning">
+											delete manga
+
+
+										</a>
+										{% else %}
+									{% endif %}
+
+
+								</div>
+							</div>
+
+
+						</div>
+
 					</div>
 
 
@@ -95,5 +150,4 @@
 	{% else %}
 		made fucker
 	{% endif %}
-
 {% endblock %}
