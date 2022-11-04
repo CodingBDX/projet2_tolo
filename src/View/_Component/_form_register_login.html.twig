@@ -8,7 +8,7 @@
 	<div class="d-none d-md-block d-xl-block flex-shrink-1 bd-highlight text-light background-ws-light rounded p-2" id=" navbarsupportedcontent">
 
 
-		{% if session.mail %}
+		{% if session.id %}
 			<div class="dropdown">
 
 
@@ -23,7 +23,7 @@
 							<strong>{{user.name}}</strong>
 
 						</a>
-						<ul class="dropdown-menu background-ws-dark title">
+						<ul class="position-absolute dropdown-menu background-ws-dark title">
 							<li>
 								<a class="dropdown-item text-light" href="{{ ROOT_URL }}/member/user_profile?id={{user.id}}">Profile user</a>
 

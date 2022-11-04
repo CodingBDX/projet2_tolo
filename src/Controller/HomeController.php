@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\ArticleManager;
 use App\Model\Cookie;
 use App\Model\Session;
+use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
 use Jikan\Request\Top\TopAnimeRequest;
 use Jikan\Request\Top\TopMangaRequest;
@@ -17,8 +18,14 @@ class HomeController extends AbstractController
     public function index(): string
     {
         $session = new Session();
-        $session->read('mail');
+        $id = $session->read('id');
 
+        if (isset($_SESSION['id'])) {
+            $userManager = new UserManager();
+            $user_profile = $userManager->selectOneById($_SESSION['id']);
+        } else {
+            $user_profile = 'end';
+        }
         $api = new MalClient();
         $topManga = $api->getTopManga(new TopMangaRequest(1, 'manga'));
         $manga = $topManga->getResults();
@@ -33,6 +40,7 @@ class HomeController extends AbstractController
             'anime_list' => $anime,
             'article' => $article,
             'session' => $_SESSION,
+            'user' => $user_profile,
         ]);
     }
 

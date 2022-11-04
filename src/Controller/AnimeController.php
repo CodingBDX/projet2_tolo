@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Model\ArticleManager;
 use App\Model\CommentsManager;
+use App\Model\Session;
+use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
 use Jikan\Request\Anime\AnimeNewsRequest;
 use Jikan\Request\Anime\AnimeRequest;
@@ -20,6 +22,16 @@ class AnimeController extends AbstractController
      */
     public function listAnime(): string
     {
+        $session = new Session();
+        $id = $session->read('id');
+
+        if (isset($_SESSION['id'])) {
+            $userManager = new UserManager();
+            $user_profile = $userManager->selectOneById($_SESSION['id']);
+        } else {
+            $user_profile = 'end';
+        }
+
         $apiAnime = new MalClient();
         $topAnime = $apiAnime->getTopAnime(new TopAnimeRequest(1, 'tv'));
         $result = $topAnime->getResults();
@@ -44,6 +56,8 @@ class AnimeController extends AbstractController
             'total' => $nbResults,
             'pager' => $pagerfanta,
             'article' => $articles,
+            'session' => $_SESSION,
+            'user' => $user_profile,
         ]);
     }
 

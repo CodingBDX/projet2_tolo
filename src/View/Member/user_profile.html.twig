@@ -2,7 +2,7 @@
 
 {% block content %}
 
-	{% if session.mail %}
+	{% if session.id %}
 
 		<div class="container-fluid row  mt-4 mb-4 p-3">
 
@@ -44,7 +44,7 @@
 
 					<div class=" px-2 rounded mt-4 date ">
 						<span class="title">Joined
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																												at
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			at
 							{{user.user_date|date("H:i")}}
 							the
 							{{user.user_date|date("Y M d")}}</span>

@@ -90,8 +90,7 @@ class UserController extends AbstractController
                      $requestManga = 'bla';
                  }
                  $session->write('id', $_GET['id']);
-                 $session->write('mail', $user_profile['mail']);
-                 $session->write('name', $user_profile['name']);
+                 //  $session->write('mail', $_GET['mail']);
 
                  return $this->twig->render(
                      'Member/user_profile.html.twig',

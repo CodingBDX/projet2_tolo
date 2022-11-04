@@ -7,11 +7,7 @@
 {% block content %}
 	{% include "_Component/_caroussel.html.twig" with {'article': article} %}
 
-	<form action="/page?id={{pager.currentPageResults[0]}}" method="post">
 
-		<button type="submit">click</button>
-
-	</form>
 	{% for i in items %}{% endfor %}
 	<div class="container-md mt-4">
 		<div class="title container-fluid p-2">
@@ -37,7 +33,13 @@
 
 							<input type="hidden" class="btn btn-primary position-relative">
 
-								<button type="submit" class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle" id="like-anime">♥️</button>
+								<button type="submit" class="btn  position-absolute   end-0" id="like-anime">
+
+
+									<p class="heart btn btn-warning ">♥️</p>
+
+
+								</button>
 
 
 							</input>
@@ -61,8 +63,8 @@
 
 
 								</a>
-								<a href="#" class="btn btn-warning mt-2">Volumes:
-									{{(anime_list[i].getVolumes) ? anime_list[i].getVolumes: "no..."}}
+								<a href="#" class="btn btn-warning mt-2">Episodes:
+									{{(anime_list[i].getEpisodes) ? anime_list[i].getEpisodes: "no..."}}
 
 
 								</a>

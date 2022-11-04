@@ -2,7 +2,8 @@
 
 {% block content %}
 
-	<div class="container-fluid  row mx-auto  mt-4 mb-4 p-3">
+	<div class="container-fluid row mt-4 mb-4 p-3">
+
 
 		{% include "_Component/_caroussel.html.twig"  with {'article': article} %}
 
@@ -31,7 +32,13 @@
 
 											<input type="hidden" class="btn btn-primary position-relative">
 
-												<button type="submit" class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle" id="like-anime">♥️</button>
+												<button type="submit" class="btn  position-absolute   end-0" id="like-anime">
+
+
+													<p class="heart btn btn-warning ">♥️</p>
+
+
+												</button>
 
 
 											</input>
@@ -81,10 +88,14 @@
 		</div>
 
 
-		<div class="card background-ws-dark  col-12 col-md-6 col-xl-6">
-			<div class="container">
+		<div class="card background-ws-dark   col-12 col-md-6 col-xl-6">
 
-				<div class="row">
+
+			<div class="container ">
+
+
+				<div class="row ">
+
 
 					<h2 class="title text-center">Manga top</h2>
 					{% for i in 0..11 %}
@@ -109,7 +120,13 @@
 
 											<input type="hidden" class="btn btn-primary position-relative">
 
-												<button type="submit" class="position-absolute bottom-20 start-50 translate-middle title p-2 mt-4  bg-light  rounded-circle" id="like-anime">♥️</button>
+												<button type="submit" class="btn  position-absolute   end-0" id="like-anime">
+
+
+													<p class="heart btn btn-warning ">♥️</p>
+
+
+												</button>
 
 
 											</input>

@@ -9,7 +9,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form action="/member/user_profile" method="get">
+				<form action="/member/user_profile?id={{user.id}}" method="post">
 
 					<div class="form-floating mb-3">
 						<input type="email" value="{{user.mail}}" name="mail" class="form-control" id="floatingInput" placeholder="name@example.com">
@@ -32,7 +32,7 @@
 					</div>
 					<div class="d-grid">
 						<button class="btn btn-warning btn-login text-uppercase fw-bold" type="submit">Sign
-																																																																																																																																																																																																                  in</button>
+																																																																																																																																																																																																														                  in</button>
 					</div>
 					<p>{{message}}</p>
 				</form>
