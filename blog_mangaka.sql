@@ -57,7 +57,44 @@ ALTER TABLE users
 ADD date DATETIME;
 
 INSERT INTO users (`id`,`name`, `password`, `mail`, `isAdmin`) VALUES (1,'admin','admin','der1@defr.fr',true);
-create table comments
+create table comments_manga
+(
+    id          int auto_increment
+        primary key,
+    content     text null,
+    users_id    int  not null,
+    mangas_malid int  not null,
+    constraint comments_mangas
+        foreign key (mangas_malid) references mangas (id),
+    constraint comments_users
+        foreign key (users_id) references users (id)
+);
+create table mangas
+(id          int auto_increment
+        primary key,
+    id_malid int not null
+);
+
+create table animes
+(id          int auto_increment
+        primary key,
+    id_malid int not null
+);
+
+create table comments_anime
+(
+    id          int auto_increment
+        primary key,
+    content     text null,
+    users_id    int  not null,
+    animes_malid int  not null,
+    constraint comments_animes
+        foreign key (animes_malid) references animes (id),
+    constraint comments_users
+        foreign key (users_id) references users (id)
+);
+
+create table comments_article
 (
     id          int auto_increment
         primary key,
@@ -69,6 +106,8 @@ create table comments
     constraint comments_users
         foreign key (users_id) references users (id)
 );
+ALTER TABLE comments
+MODIFY COLUMN articles_id int null;
 
 
 
