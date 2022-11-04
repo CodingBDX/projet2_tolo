@@ -40,13 +40,26 @@ class MangaController extends AbstractController
         ]);
     }
 
+    // show unique page info manga
          public function showMangaMoreInfo(int $malId): string
          {
+             $session = new Session();
+             $id = $session->read('id');
+
+             if (isset($_SESSION['id'])) {
+                 $userManager = new UserManager();
+                 $user_profile = $userManager->selectOneById($_SESSION['id']);
+             } else {
+                 $user_profile = 'end';
+             }
+
              $apiAnime = new MalClient();
 
              $data = $apiAnime->getManga(new MangaRequest($malId));
 
              return $this->twig->render('Manga/show.html.twig', ['manga_show' => $data,
+                 'session' => $_SESSION,
+                 'user' => $user_profile,
              ]);
          }
 }

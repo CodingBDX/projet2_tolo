@@ -7,7 +7,6 @@ use App\Model\CommentsManager;
 use App\Model\Session;
 use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
-use Jikan\Request\Anime\AnimeNewsRequest;
 use Jikan\Request\Anime\AnimeRequest;
 use Jikan\Request\Anime\AnimeVideosRequest;
 use Jikan\Request\Search\AnimeSearchRequest;
@@ -18,7 +17,7 @@ use Pagerfanta\Pagerfanta;
 class AnimeController extends AbstractController
 {
     /**
-     * List items.
+     * List animes.
      */
     public function listAnime(): string
     {
@@ -61,8 +60,20 @@ class AnimeController extends AbstractController
         ]);
     }
 
+    // view anime info
+
      public function showAnimeMoreInfo(int $malId): string
      {
+         $session = new Session();
+         $id = $session->read('id');
+
+         if (isset($_SESSION['id'])) {
+             $userManager = new UserManager();
+             $user_profile = $userManager->selectOneById($_SESSION['id']);
+         } else {
+             $user_profile = 'end';
+         }
+
          $apiAnime = new MalClient();
 
          $data = $apiAnime->getAnime(new AnimeRequest($malId));
@@ -87,25 +98,32 @@ class AnimeController extends AbstractController
          return $this->twig->render('Anime/show.html.twig', ['anime_show' => $data,
              'episode' => $episodes,
              'comments' => $comments,
+             'session' => $_SESSION,
+             'user' => $user_profile,
          ]);
      }
 
+    //  search anime
      public function searchAnime($query): ?string
      {
+         $session = new Session();
+         $id = $session->read('id');
+
+         if (isset($_SESSION['id'])) {
+             $userManager = new UserManager();
+             $user_profile = $userManager->selectOneById($_SESSION['id']);
+         } else {
+             $user_profile = 'end';
+         }
+
          $apiAnime = new MalClient();
 
          $animeSearchResults = $apiAnime->getAnimeSearch(new AnimeSearchRequest((string) $query));
 
          return $this->twig->render('Anime/search.html.twig', ['anime_search' => $animeSearchResults,
-             'found' => $query, ]);
-     }
-
-     public function animeNews(): string
-     {
-         $apiAnime = new MalClient();
-
-         $data = $apiAnime->getNewsList(new AnimeNewsRequest(5114, 1));
-
-         return $this->twig->render('Anime/anime.html.twig', ['news' => $data]);
+             'found' => $query,
+             'session' => $_SESSION,
+             'user' => $user_profile,
+         ]);
      }
 }
