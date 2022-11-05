@@ -55,7 +55,7 @@ select * FROM articles;
 ALTER TABLE articles
 MODIFY COLUMN is_featured INT DEFAULT 0;
 
-UPDATE articles SET is_featured = 0 where id = 13;
+UPDATE articles SET is_featured = 9 where id = 13;
 ALTER TABLE users
 ADD date DATETIME;
 

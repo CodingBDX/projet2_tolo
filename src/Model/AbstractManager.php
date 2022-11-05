@@ -2,15 +2,13 @@
 
 namespace App\Model;
 
-use PDO;
-
 /**
  * Abstract class handling default manager.
  */
 abstract class AbstractManager
 {
     public const TABLE = '';
-    protected PDO $pdo;
+    protected \PDO $pdo;
 
     public function __construct()
     {
@@ -34,7 +32,7 @@ abstract class AbstractManager
     /**
      * Get one row from database by ID.
      */
-    public function selectOneById(string $id): array|false
+    public function selectOneById(int $id): array|false
     {
         // prepared request
         $statement = $this->pdo->prepare('SELECT * FROM '.static::TABLE.' WHERE id=:id');
