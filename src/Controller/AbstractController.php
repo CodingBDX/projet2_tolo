@@ -7,12 +7,11 @@ use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * Initialized some Controller common features (Twig...)
+ * Initialized some Controller common features (Twig...).
  */
 abstract class AbstractController
 {
     protected Environment $twig;
-
 
     public function __construct()
     {
