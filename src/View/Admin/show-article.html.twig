@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+	<a href="{{ ROOT_URL }}/admin/articles" class="text-light btn btn-warning display-6">Back</a>
+
+
+	<a href="{{ ROOT_URL }}/admin/articles/edit?id={{ articles.id }}" class="text-light btn btn-warning display-6">Edit the article</a>
+
+	{% include "Admin/modal.html.twig" %}
+
+
+	<div class="col-12">
+		<div class="card  mt-2 ">
+			<div class="row">
+				<div class="col-6">
+					<img src="{{articles.picture}}" class="card-img-top w-100 h-100 p-4" alt="..." style="height:15em">
+
+
+				</div>
+				<div class="col-6 mt-4">
+					<h2>{{articles.title}}</h2>
+
+
+					<div class="progress m-2">
+						<div class="progress-bar btn-warning" role="progressbar" aria-label="Example with label" style="width: {{anime_show.getScore * 10}}%; " aria-valuenow="{{anime_show.getScore}}" aria-valuemin="0" aria-valuemax="10">note:{{anime_show.getScore}}/10</div>
+
+
+					</div>
+
+					<a href="#" class="mt-2 btn btn-warning">
+						{{(anime_show.startDate) ? anime_show.startDate : "not start"}}
+
+
+					</a>
+					<a href="#" class="mt-2 btn btn-warning">
+						{{(anime_show.type) ? anime_show.type : "not type"}}
+
+
+					</a>
+
+
+				</div>
+
+
+			</div>
+
+
+			<div class="card-body m-2 background-ws-dark text-light rounded opacity-50">
+
+
+				{{articles.content}}
+
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

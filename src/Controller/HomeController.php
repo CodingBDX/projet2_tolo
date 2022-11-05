@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
+use App\Model\Breadcrumb;
 use App\Model\Cookie;
 use App\Model\Session;
 use App\Model\UserManager;
@@ -17,6 +18,9 @@ class HomeController extends AbstractController
      */
     public function index(): string
     {
+        $breadcrumb = new Breadcrumb();
+        $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
+
         $session = new Session();
         $id = $session->read('id');
 
@@ -41,6 +45,7 @@ class HomeController extends AbstractController
             'article' => $article,
             'session' => $_SESSION,
             'user' => $user_profile,
+            'breadcrumb' => $breadcrumbMake,
         ]);
     }
 

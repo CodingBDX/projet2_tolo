@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Bcrypt;
+use App\Model\Breadcrumb;
 use App\Model\Session;
 use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
@@ -42,9 +44,16 @@ class UserController extends AbstractController
 
                 // TODO validations (length, format...)
 
+                $bcrypt = new Bcrypt(15);
+
+                $bcrypt->hash($user['password']);
+
                 // if validation is ok, insert and redirection
                 $userManager = new UserManager();
                 $register = $userManager->insert($user);
+
+                $session = new Session();
+                $session->setFlash('status', 'welcome to supra manga site powaa');
                 header('Location:/member/user_profile?id='.$register);
 
                 return null;
@@ -69,25 +78,30 @@ class UserController extends AbstractController
          {
              if ('GET' === $_SERVER['REQUEST_METHOD']) {
                  //  init session
-
+                 $breadcrumb = new Breadcrumb();
+                 $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
                  $session = new Session();
 
                  $userManager = new UserManager();
                  $user_profile = $userManager->selectOneById($id);
 
                  $api = new MalClient();
-
+                 if (isset($_SESSION['flash'])) {
+                     $session->hasFlashes($_SESSION['flash']);
+                 } else {
+                     $session = '';
+                 }
                  if (isset($_COOKIE['anime_like'])) {
                      $animeCookie = $_COOKIE['anime_like'];
                      $requestAnime = $api->getAnime(new AnimeRequest($animeCookie));
                  } else {
-                     $requestAnime = 'bla';
+                     $requestAnime = '';
                  }
                  if (isset($_COOKIE['manga_like'])) {
                      $mangaCookie = $_COOKIE['manga_like'];
                      $requestManga = $api->getManga(new MangaRequest($mangaCookie));
                  } else {
-                     $requestManga = 'bla';
+                     $requestManga = '';
                  }
                  $session->write('id', $_GET['id']);
                  //  $session->write('mail', $_GET['mail']);
@@ -99,6 +113,7 @@ class UserController extends AbstractController
                          'session' => $_SESSION,
                          'anime_like' => $requestAnime,
                          'manga_like' => $requestManga,
+                         'breadcrumb' => $breadcrumbMake,
                      ]
                  );
              }
@@ -133,9 +148,12 @@ public function edit_avatar(int $id)
         $userManager = new UserManager();
         $user = $userManager->selectOneById($id);
 
+        $bcrypt = new Bcrypt(15);
+
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             // clean $_POST data
             $user = array_map('trim', $_POST);
+            $isGood = $bcrypt->verify($_POST['password'], $user['password']);
 
             // TODO validations (length, format...)
 
@@ -150,6 +168,7 @@ public function edit_avatar(int $id)
 
         return $this->twig->render('member/user_profile.html.twig', [
             'user' => $user,
+            'password' => $isGood,
         ]);
     }
 }

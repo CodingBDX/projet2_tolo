@@ -2,6 +2,18 @@
 
 {% block content %}
 
+
+	{% if session.flash.status %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{session.flash.status}}
+
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+
+		{% else %}
+
+	{% endif %}
+
 	{% if session.id %}
 
 		<div class="container-fluid row  mt-4 mb-4 p-3">
@@ -13,14 +25,14 @@
 				<div class="background-ws-light rounded p-2 image d-flex flex-column justify-content-center align-items-center">
 					<button class="btn btn-warning rounded-circle">
 						<img src="{{user.picture ? user.picture : '/assets/images/avatar_default.png'}}" class="rounded" height="100" width="100"/></button>
-					<form action="/member/edit_profile?id={{user.id}}" method="post">
+					<form action="{{ ROOT_URL }}/member/edit_profile?id={{user.id}}" method="post">
 
 
 						<input type="text" class="d-flex mt-3 title background-ws-dark btn btn-warning" value="{{user.name}}" name="name" placeholder="{{user.name}}">
 
-						<input type="text" class="d-flex mt-3 title background-ws-dark btn btn-warning" value="{{user.mail}}" name="mail" placeholder="{{user.mail}}">
+						<input type="mail" class="d-flex mt-3 title background-ws-dark btn btn-warning" value="{{user.mail}}" name="mail" placeholder="{{user.mail}}">
 
-						<input type="text" class="d-flex mt-3 title background-ws-dark btn btn-warning" value="{{user.password}}" name="password" placeholder="{{user.password}}">
+						<input type="password" class="d-flex mt-3 title background-ws-dark btn btn-warning" value="{{user.password}}" name="password" placeholder="{{password}}">
 
 
 						<input type="hidden" name="id" value="{{ user.id }}">
@@ -30,8 +42,9 @@
 							<button class="btn btn-warning text-light" type="submit">Save Modified Profile</button>
 						</div>
 					</form>
-					<div id="d-flex mt-2">
-						<form method="POST" action="/member/edit_avatar?id={{user.id}}" enctype="multipart/form-data">
+					<div id="d-flex mt-2 bg-light">
+						<form method="POST" action="{{ ROOT_URL }}/member/edit_avatar?id={{user.id}}" enctype="multipart/form-data">
+
 
 							<div class="form-group">
 								<input class="form-control title background-ws-dark mt-2" type="file" name="uploadfile" value=""/>
@@ -44,7 +57,7 @@
 
 					<div class=" px-2 rounded mt-4 date ">
 						<span class="title">Joined
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																			at
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																											at
 							{{user.user_date|date("H:i")}}
 							the
 							{{user.user_date|date("Y M d")}}</span>
@@ -61,10 +74,20 @@
 						{% if user.isAdmin == true %}
 							<h3 class="title text-center">administration</h3>
 
-							<a href="/admin/all_users" class="d-flex row mx-auto">
+							<a href="{{ ROOT_URL }}/admin/all_users" class="text-decoration-none d-flex row mx-auto">
+
+
 								<p class="btn btn-warning my-2 text-light">Show all Profiles</p>
 							</a>
-							<a href="/articles/add" class="d-flex row mx-auto">
+							<a href="{{ ROOT_URL }}/admin/articles" class="text-decoration-none d-flex row mx-auto">
+
+
+								<p class="btn btn-warning my-2 text-light">Show all Articles</p>
+							</a>
+
+							<a href="{{ ROOT_URL }}/admin/addArticles" class="text-decoration-none d-flex row mx-auto">
+
+
 								<p class="btn btn-warning my-2 text-light">Create Article</p>
 							</a>
 

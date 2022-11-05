@@ -4,6 +4,8 @@
 {% endblock %}
 
 {% block content %}
+
+
 	<div class="container-fluid mt-4">
 
 		<div class="card background-ws-dark">
@@ -14,7 +16,7 @@
 					<h2 class="title text-center display-1">Search:
 						{{found}}</h2>
 
-					{% for i in 0..29 %}
+					{% for i in 0..29%}
 						<div class="card mt-2 col-xl-2 col-md-6 col-sm-6">
 							<div class="d-fluid">
 
@@ -57,7 +59,7 @@
 
 												<div class="row">
 													<a href="#" class="btn btn-warning">
-														{{(anime_search.results.startDate[i].date) ? anime_search.results.startDate[i].date : "not start"}}
+														{{(anime_search.results[i].startDate.s) ? anime_search.results[i].startDate.s : "not start"}}
 
 
 													</a>

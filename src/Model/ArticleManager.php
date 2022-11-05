@@ -2,23 +2,22 @@
 
 namespace App\Model;
 
-use PDO;
-
 class ArticleManager extends AbstractManager
 {
     public const TABLE = 'articles';
 
     /**
-     * Insert new item in database.
+     * Insert new article in database.
      */
-    public function insert(array $article): int
+    public function insertArticle(array $article): int
     {
-        $statement = $this->pdo->prepare('INSERT INTO '.self::TABLE.' (`title`,`content`,`picture`) VALUES (:title,:content,:picture)');
-        $statement->bindValue('title', $article['title'], PDO::PARAM_STR);
+        $statement = $this->pdo->prepare('INSERT INTO '.self::TABLE.' (title, content, author, picture, date, is_featured) VALUES (:title, :content, :author, :picture, now(), :featured)');
+        $statement->bindValue(':title', $article['article-title'], \PDO::PARAM_STR);
+        $statement->bindValue(':content', $article['article-content'], \PDO::PARAM_STR);
+        $statement->bindValue(':picture', $article['article-picture'], \PDO::PARAM_STR);
+        $statement->bindValue(':author', $article['article-author'], \PDO::PARAM_STR);
 
-        $statement->bindValue('content', $article['content'], PDO::PARAM_STR);
-
-        $statement->bindValue('picture', $article['picture'], PDO::PARAM_STR);
+        $statement->bindValue(':featured', $article['article-featured'], \PDO::PARAM_STR);
 
         $statement->execute();
 
@@ -26,24 +25,17 @@ class ArticleManager extends AbstractManager
     }
 
     /**
-     * Update item in database.
+     * Update article in database.
      */
-    public function update(array $item): bool
+    public function editArticle(array $item): bool
     {
-        $statement = $this->pdo->prepare('UPDATE '.self::TABLE.' SET `title` = :title WHERE id=:id');
-        $statement->bindValue('id', $item['id'], PDO::PARAM_INT);
-        $statement->bindValue('title', $item['title'], PDO::PARAM_STR);
+        $statement = $this->pdo->prepare('UPDATE '.self::TABLE.' SET title = :title, content = :content, picture = :picture, author = :author, date = now() WHERE id=:id');
+        $statement->bindValue('id', $item['id'], \PDO::PARAM_INT);
+        $statement->bindValue('title', $item['article-title'], \PDO::PARAM_STR);
+        $statement->bindValue('content', $item['article-content'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $item['article-picture'], \PDO::PARAM_STR);
+        $statement->bindValue('author', $item['article-author'], \PDO::PARAM_STR);
 
         return $statement->execute();
-    }
-
-    public function selectAll(string $orderBy = '', string $direction = 'ASC'): array
-    {
-        $query = 'SELECT * FROM '.static::TABLE;
-        if ($orderBy) {
-            $query .= ' ORDER BY '.$orderBy.' '.$direction;
-        }
-
-        return $this->pdo->query($query)->fetchAll();
     }
 }

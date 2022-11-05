@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
+use App\Model\Breadcrumb;
 use App\Model\CommentsManager;
 use App\Model\Session;
 use App\Model\UserManager;
@@ -21,6 +22,9 @@ class AnimeController extends AbstractController
      */
     public function listAnime(): string
     {
+        $breadcrumb = new Breadcrumb();
+        $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
+
         $session = new Session();
         $id = $session->read('id');
 
@@ -57,6 +61,7 @@ class AnimeController extends AbstractController
             'article' => $articles,
             'session' => $_SESSION,
             'user' => $user_profile,
+            'breadcrumb' => $breadcrumbMake,
         ]);
     }
 
@@ -64,6 +69,9 @@ class AnimeController extends AbstractController
 
      public function showAnimeMoreInfo(int $malId): string
      {
+         $breadcrumb = new Breadcrumb();
+         $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
+
          $session = new Session();
          $id = $session->read('id');
 
@@ -100,12 +108,16 @@ class AnimeController extends AbstractController
              'comments' => $comments,
              'session' => $_SESSION,
              'user' => $user_profile,
+             'breadcrumb' => $breadcrumbMake,
          ]);
      }
 
     //  search anime
      public function searchAnime($query): ?string
      {
+         $breadcrumb = new Breadcrumb();
+         $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
+
          $session = new Session();
          $id = $session->read('id');
 
@@ -124,6 +136,7 @@ class AnimeController extends AbstractController
              'found' => $query,
              'session' => $_SESSION,
              'user' => $user_profile,
+             'breadcrumb' => $breadcrumbMake,
          ]);
      }
 }

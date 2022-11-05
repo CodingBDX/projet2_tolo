@@ -104,6 +104,7 @@ body {
     margin-top: 70vh;
 }
 
+
 .heart:hover {
     animation: 2.5s ease 0s normal none infinite running animateHeartBeat;
     overflow: inherit;

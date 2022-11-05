@@ -1,0 +1,46 @@
+{% for error in errors %}
+	<li>{{ errors.error }}</li>
+{% endfor %}
+<hr>
+<div class="add-article">
+	<form method="post">
+		<input type="hidden" value="{{ article.id }}" name="id">
+		<div class="mb-3">
+			<label for="article-title" class="form-label text-light title">Article title</label>
+			<input type="text" class="form-control" id="article-title" name="article-title" value="{{ article.title }}">
+		</div>
+
+		<select class="form-select mb-2" aria-label="Default select example" name="article-featured" value="{{ article.featured }}">
+
+			<option selected name="article-featured-true" value="1">Featured article?</option>
+
+			<option name="article-featured-true" value="1">True</option>
+
+			<option name="article-featured-false" value="0">False</option>
+
+		</select>
+
+		<div class="mb-3">
+			<label for="article-content" class="form-label text-light title">Article content</label>
+
+			<textarea class="form-control" name="article-content" id="article-content" rows="12" cols="60">{{ article.content }}</textarea>
+		</div>
+
+		<div class="mb-3">
+			<label for="article-author" class="form-label text-light title">Manga author</label>
+
+			<input type="text" class="form-control" id="article-author" name="article-author" value="{{ article.author }}">
+		</div>
+
+		<div class="mb-3">
+			<label for="article-picture" class="form-label text-light title">Url article picture (<i>optionnal</i>)</label>
+
+			<input type="text" class="form-control" id="article-picture" name="article-picture" value="{{ article.picture }}">
+		</div>
+		<div class="row mx-4 my-2 ">
+			<button type="submit" class="btn btn-warning btn-lg text-light">Submit</button>
+
+		</div>
+
+	</form>
+</div>

@@ -3,42 +3,19 @@
 		<div class="row mx-auto my-3  justify-content-center">
 			<div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner" role="listbox">
-
-
-					<div class="carousel-item active">
-						<div class="col-12 col-md-4 col-xl-2">
-							<div class="card">
-								<img src="{{article[0].picture}}" class="card-img-top" alt="..." style="height:20em;">
-
-
-								<div class="card-body">
-									<h2 class="card-title">{{ article[0].title|striptags|length > 12 ? article[0].title|striptags|slice(0, 12) ~ '...' : article[0].title|striptags }}</h2>
-
-
-									<p class="card-text text-light">{{ article[0].content|striptags|length > 100 ? article[0].content|striptags|slice(0, 100) ~ '...' : article[0].content|striptags }}</p>
-
-
-									<a href="/articles/show?id={{ article[0].id }}" class="btn btn-warning">Go to Article</a>
-
-
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-
-					{% for i in 1..6 %}
-						<div class="carousel-item">
+					{% if article[0].is_featured == 1 %}
+						<div class="carousel-item active">
 							<div class="col-12 col-md-4 col-xl-2">
-
 								<div class="card">
-									<img src="{{article[i].picture}}" class="card-img-top" alt="..." style="height:20em;">
+									<img src="{{article[0].picture}}" class="card-img-top" alt="..." style="height:20em;">
+
+
 									<div class="card-body">
-										<h2 class="card-title">{{ article[i].title|striptags|length > 12 ? article[i].title|striptags|slice(0, 12) ~ '...' : article[i].title|striptags }}</h2>
+										<h2 class="card-title">{{ article[0].title|striptags|length > 12 ? article[0].title|striptags|slice(0, 12) ~ '...' : article[0].title|striptags }}</h2>
 
 
-										<p class="card-text text-light">{{ article[i].content|striptags|length > 100 ? article[i].content|striptags|slice(0, 100) ~ '...' : article[i].content|striptags }}</p>
+										<p class="card-text text-light">{{ article[0].content|striptags|length > 100 ? article[0].content|striptags|slice(0, 100) ~ '...' : article[0].content|striptags }}</p>
+
 
 										<a href="/articles/show?id={{ article[0].id }}" class="btn btn-warning">Go to Article</a>
 
@@ -46,10 +23,44 @@
 									</div>
 								</div>
 
-
 							</div>
 						</div>
-					{% endfor %}
+
+						{% for i in 1..8 %}
+							{% if article[i].is_featured == 1 %}
+								<div class="carousel-item">
+									<div class="col-12 col-md-4 col-xl-2">
+
+										<div class="card">
+											<img src="{{article[i].picture}}" class="card-img-top" alt="..." style="height:20em;">
+											<div class="card-body">
+												<h2 class="card-title">{{ article[i].title|striptags|length > 12 ? article[i].title|striptags|slice(0, 12) ~ '...' : article[i].title|striptags }}</h2>
+
+
+												<p class="card-text text-light">{{ article[i].content|striptags|length > 100 ? article[i].content|striptags|slice(0, 100) ~ '...' : article[i].content|striptags }}</p>
+
+												<a href="/articles/show?id={{ article[0].id }}" class="btn btn-warning">Go to Article</a>
+
+
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+
+								{% else %}
+
+
+							{% endif %}
+						{% endfor %}
+
+
+						{% else %}
+
+					{% endif %}
+
+
 				</div>
 				<a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
 					<span class="carousel-control-prev-icon" aria-hidden="true"></span>

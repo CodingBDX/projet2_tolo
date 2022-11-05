@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
+use App\Model\Breadcrumb;
 use App\Model\Session;
 use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
@@ -16,6 +17,9 @@ class MangaController extends AbstractController
      */
     public function listManga(): string
     {
+        $breadcrumb = new Breadcrumb();
+        $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
+
         $session = new Session();
         $id = $session->read('id');
 
@@ -37,12 +41,16 @@ class MangaController extends AbstractController
             'article' => $articles,
             'session' => $_SESSION,
             'user' => $user_profile,
+            'breadcrumb' => $breadcrumbMake,
         ]);
     }
 
     // show unique page info manga
          public function showMangaMoreInfo(int $malId): string
          {
+             $breadcrumb = new Breadcrumb();
+             $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
+
              $session = new Session();
              $id = $session->read('id');
 
@@ -50,7 +58,7 @@ class MangaController extends AbstractController
                  $userManager = new UserManager();
                  $user_profile = $userManager->selectOneById($_SESSION['id']);
              } else {
-                 $user_profile = 'end';
+                 $user_profile = 'en';
              }
 
              $apiAnime = new MalClient();
@@ -60,6 +68,7 @@ class MangaController extends AbstractController
              return $this->twig->render('Manga/show.html.twig', ['manga_show' => $data,
                  'session' => $_SESSION,
                  'user' => $user_profile,
+                 'breadcrumb' => $breadcrumbMake,
              ]);
          }
 }
