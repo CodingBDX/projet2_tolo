@@ -5,10 +5,10 @@
 
 
 <div>
-	<div class="d-none d-md-block d-xl-block flex-shrink-1 bd-highlight text-light background-ws-light rounded p-2" id=" navbarsupportedcontent">
+	<div class="d-none d-md-block d-xl-block   flex-shrink-1 bd-highlight text-light background-ws-light rounded p-2" id=" navbarsupportedcontent">
 
 
-		{% if session.id %}
+		{% if session.user_id %}
 			<div class="dropdown">
 
 
@@ -44,7 +44,7 @@
 
 
 		{% else %}
-			<ul class="nav  flex-column mb-auto background-ws-light">
+			<ul class="nav d-flex flex-column d-block mh-100 background-ws-light">
 
 
 				<li class="nav-item">

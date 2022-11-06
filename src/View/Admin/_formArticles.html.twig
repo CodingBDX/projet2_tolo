@@ -1,8 +1,17 @@
-{% for error in errors %}
-	<li>{{ errors.error }}</li>
-{% endfor %}
 <hr>
 <div class="add-article">
+	{% if session.flash.status %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{session.flash.status}}
+
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+
+		{% else %}
+
+	{% endif %}
+
+
 	<form method="post">
 		<input type="hidden" value="{{ article.id }}" name="id">
 		<div class="mb-3">
@@ -23,7 +32,7 @@
 		<div class="mb-3">
 			<label for="article-content" class="form-label text-light title">Article content</label>
 
-			<textarea class="form-control" name="article-content" id="article-content" rows="12" cols="60">{{ article.content }}</textarea>
+			<textarea class="form-control" name="article-content" id="default" rows="12" cols="60">{{ article.content }}</textarea>
 		</div>
 
 		<div class="mb-3">
@@ -44,3 +53,10 @@
 
 	</form>
 </div>
+{% block javascript %}
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script>
+		tinymce.init({selector: 'textarea#default'});
+	</script>
+
+{% endblock %}

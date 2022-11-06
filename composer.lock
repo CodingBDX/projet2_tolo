@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ea285f14361ee2b0538db27e36f68e9",
+    "content-hash": "2cac578ad1b3336b75ba34438cfb29bf",
     "packages": [
         {
             "name": "fabpot/goutte",
@@ -60,6 +60,65 @@
                 "source": "https://github.com/FriendsOfPHP/Goutte/tree/v4.0.2"
             },
             "time": "2021-12-17T17:15:01+00:00"
+        },
+        {
+            "name": "froala/wysiwyg-editor-php-sdk",
+            "version": "4.0.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/froala/wysiwyg-editor-php-sdk.git",
+                "reference": "0a49e53f29e2f4bc06c8af47c0d295475f87192e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/froala/wysiwyg-editor-php-sdk/zipball/0a49e53f29e2f4bc06c8af47c0d295475f87192e",
+                "reference": "0a49e53f29e2f4bc06c8af47c0d295475f87192e",
+                "shasum": ""
+            },
+            "type": "php-plugin",
+            "extra": {
+                "installer-name": "FroalaEditor"
+            },
+            "autoload": {
+                "psr-0": {
+                    "FroalaEditor": "lib/"
+                },
+                "psr-4": {
+                    "FroalaEditor\\": "lib/FroalaEditor"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Froala Labs",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "PHP SDK for Froala WYSIWYG Editor",
+            "homepage": "https://www.froala.com/wysiwyg-editor",
+            "keywords": [
+                "editor",
+                "froala",
+                "html",
+                "php",
+                "php rich text editor",
+                "php rte",
+                "php wysiwyg",
+                "rich editor",
+                "rich text editor",
+                "rte",
+                "sdk",
+                "text",
+                "wysiwyg"
+            ],
+            "support": {
+                "issues": "https://github.com/froala/froala-editor-php-sdk/issues",
+                "source": "https://www.froala.com/wysiwyg-editor"
+            },
+            "time": "2022-10-12T08:43:19+00:00"
         },
         {
             "name": "jikan-me/jikan",

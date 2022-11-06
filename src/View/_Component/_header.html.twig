@@ -3,24 +3,49 @@
 	<div class="container-fluid">
 		<div class="d-flex">
 
-			<div class="mx-auto mx-md-0 w-100">
-				<a class="navbar-brand" href="/home">
-					<img src="https://ih1.redbubble.net/image.1998199613.9126/flat,128x,075,f-pad,128x128,f8f8f8.jpg" alt="Logo" width="60" height="44" class="d-inline-block align-text-top">
+			<div class="d-flex mx-auto mx-md-0 w-100 background-ws-light p-2 rounded">
+				<p class="col-4 rounded text-light  background-ws-dark p-2 display-6 rotate">manga 尊</p>
 
-				</a>
-			</div>
+			</p>
+		</p>
+		<p class="col-8 display-5  title  text-center lh-1">
+			jean
+			<br>
+			de
 
-		</div>
-
-
-		<div class=" flex-shrink-1 bd-highlight  display-3 title" id="navbarSupportedContent">
-
-			{% block title %}jean le grand
-			{% endblock %}
-
-		</div>
-
-		{% include "_Component/_form_register_login.html.twig"  with {'session': session} %}
+																																																																																																																															la
+			<br>
+			bour
+		</p>
 
 	</div>
-</nav>
+
+</div>
+
+
+<div class="container-flip flex-shrink-1 bd-highlight  title" id="navbarSupportedContent">
+
+	{% block title %}
+		Find
+		<div id="flip" class="display-6">
+			<div>
+				<div>Mangas</div>
+			</div>
+			<div>
+				<div>Animes</div>
+
+			</div>
+			<div>
+				<div>Articles</div>
+
+			</div>
+		</div>
+		<p class="display-5">
+			on our website!
+		</p>
+
+	{% endblock %}
+
+</div>
+
+{% include "_Component/_form_register_login.html.twig"  with {'session': session} %}</div></nav>

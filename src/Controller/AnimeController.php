@@ -28,6 +28,8 @@ class AnimeController extends AbstractController
         $session = new Session();
         $id = $session->read('id');
 
+        $active = $_SERVER['PHP_SELF'];
+
         if (isset($_SESSION['id'])) {
             $userManager = new UserManager();
             $user_profile = $userManager->selectOneById($_SESSION['id']);
@@ -62,6 +64,7 @@ class AnimeController extends AbstractController
             'session' => $_SESSION,
             'user' => $user_profile,
             'breadcrumb' => $breadcrumbMake,
+            'active' => $active,
         ]);
     }
 
@@ -75,6 +78,7 @@ class AnimeController extends AbstractController
          $session = new Session();
          $id = $session->read('id');
 
+         $active = $_SERVER['PHP_SELF'];
          if (isset($_SESSION['id'])) {
              $userManager = new UserManager();
              $user_profile = $userManager->selectOneById($_SESSION['id']);
@@ -109,12 +113,17 @@ class AnimeController extends AbstractController
              'session' => $_SESSION,
              'user' => $user_profile,
              'breadcrumb' => $breadcrumbMake,
+             'active' => $active,
          ]);
      }
 
     //  search anime
-     public function searchAnime($query): ?string
+     public function searchAnime(string $query): ?string
      {
+         if ('POST' === $_SERVER['REQUEST_METHOD']) {
+             $query = array_map('trim', $_POST);
+         }
+
          $breadcrumb = new Breadcrumb();
          $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
 

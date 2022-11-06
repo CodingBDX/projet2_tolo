@@ -1,13 +1,16 @@
 <div class="container-md text-center rounded my-3">
 	<div class="row">
+		<div class="button_all_title display-5 my-2 title">featured articles</div>
 		<div class="row mx-auto my-3  justify-content-center">
+
+
 			<div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner" role="listbox">
 					{% if article[0].is_featured == 1 %}
 						<div class="carousel-item active">
 							<div class="col-12 col-md-4 col-xl-2">
-								<div class="card">
-									<img src="{{article[0].picture}}" class="card-img-top" alt="..." style="height:20em;">
+								<div class="card px-2">
+									<img src="{{article[0].picture}}" class="card-img-top py-2" alt="..." style="height:20em;">
 
 
 									<div class="card-body">
@@ -31,8 +34,9 @@
 								<div class="carousel-item">
 									<div class="col-12 col-md-4 col-xl-2">
 
-										<div class="card">
-											<img src="{{article[i].picture}}" class="card-img-top" alt="..." style="height:20em;">
+										<div class="card px-2">
+
+											<img src="{{article[i].picture}}" class="py-2 card-img-top" alt="..." style="height:20em;">
 											<div class="card-body">
 												<h2 class="card-title">{{ article[i].title|striptags|length > 12 ? article[i].title|striptags|slice(0, 12) ~ '...' : article[i].title|striptags }}</h2>
 

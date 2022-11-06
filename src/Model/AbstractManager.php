@@ -52,4 +52,15 @@ abstract class AbstractManager
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
     }
+
+     public function active($correct_page)
+     {
+         $url_array = explode('/', $_SERVER['REQUEST_URI']);
+         $url = end($url_array);
+         if ($correct_page == $url) {
+             echo 'active'; // class name in css
+         }
+
+         return $this->em->getRepository('CoursatBundle:test')->find($correct_page);
+     }
 }

@@ -22,13 +22,15 @@ class HomeController extends AbstractController
         $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
 
         $session = new Session();
-        $id = $session->read('id');
+        $id = $session->read('user_id');
 
-        if (isset($_SESSION['id'])) {
+        $active = $_SERVER['PHP_SELF'];
+
+        if (isset($_SESSION['user_id'])) {
             $userManager = new UserManager();
-            $user_profile = $userManager->selectOneById($_SESSION['id']);
+            $user_profile = $userManager->selectOneById($_SESSION['user_id']);
         } else {
-            $user_profile = 'end';
+            $user_profile = '';
         }
         $api = new MalClient();
         $topManga = $api->getTopManga(new TopMangaRequest(1, 'manga'));
@@ -46,6 +48,7 @@ class HomeController extends AbstractController
             'session' => $_SESSION,
             'user' => $user_profile,
             'breadcrumb' => $breadcrumbMake,
+            'active' => $active,
         ]);
     }
 

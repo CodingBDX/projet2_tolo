@@ -23,6 +23,8 @@ class MangaController extends AbstractController
         $session = new Session();
         $id = $session->read('id');
 
+        $active = $_SERVER['PHP_SELF'];
+
         if (isset($_SESSION['id'])) {
             $userManager = new UserManager();
             $user_profile = $userManager->selectOneById($_SESSION['id']);
@@ -42,6 +44,7 @@ class MangaController extends AbstractController
             'session' => $_SESSION,
             'user' => $user_profile,
             'breadcrumb' => $breadcrumbMake,
+            'active' => $active,
         ]);
     }
 
@@ -53,7 +56,7 @@ class MangaController extends AbstractController
 
              $session = new Session();
              $id = $session->read('id');
-
+             $active = $_SERVER['PHP_SELF'];
              if (isset($_SESSION['id'])) {
                  $userManager = new UserManager();
                  $user_profile = $userManager->selectOneById($_SESSION['id']);
@@ -69,6 +72,7 @@ class MangaController extends AbstractController
                  'session' => $_SESSION,
                  'user' => $user_profile,
                  'breadcrumb' => $breadcrumbMake,
+                 'active' => $active,
              ]);
          }
 }

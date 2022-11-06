@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "bootstrap-icons": "^1.9.1"
+    "bootstrap-icons": "^1.9.1",
+    "froala-editor": "^4.0.15"
   }
 }

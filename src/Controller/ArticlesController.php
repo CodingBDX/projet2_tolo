@@ -37,22 +37,22 @@ class ArticlesController extends AbstractController
             }
 
             if (!isset($title) || (empty(trim($title)))) {
-                $errors[] = 'Titre incorrect';
+                $session->setFlash('status', 'wrong title or empty title');
+
+                return header('Location: addArticles');
             }
             if (!isset($content) || (empty(trim($content)))) {
-                $errors[] = 'Content incorrect';
-            }
-            if (!isset($author) || (empty(trim($author)))) {
-                $errors[] = 'Auteur incorrect';
+                $session->setFlash('status', 'wrong content or empty content');
+
+                return header('Location: addArticles');
             }
 
-            var_dump($errors);
             // if validation is ok, insert and redirection
             if (empty($errors)) {
                 $articleManager = new ArticleManager();
                 $id = $articleManager->insertArticle($item);
 
-                return null;
+                return header('Location: articles/show?id='.$id);
             }
         }
 
@@ -69,6 +69,18 @@ class ArticlesController extends AbstractController
 
         return $this->twig->render('Admin/show-article.html.twig', ['articles' => $article]);
     }
+
+    // member show only access not admin directory
+        public function showArticleMember(int $id): string
+        {
+            $active = $_SERVER['PHP_SELF'];
+
+            $articlesManager = new ArticleManager();
+            $article = $articlesManager->selectOneById($id);
+
+            return $this->twig->render('Article/show.html.twig', ['articles' => $article,
+                'active' => $active, ]);
+        }
 
     /**
      * Edit a specific article.
@@ -111,4 +123,14 @@ class ArticlesController extends AbstractController
     }
 
     // Edit a specific item
+public function articlesMember(): string
+{
+    $active = $_SERVER['PHP_SELF'];
+
+    $articleManager = new ArticleManager();
+    $articles = $articleManager->selectAll('id');
+
+    return $this->twig->render('Article/index.html.twig', ['articles' => $articles,
+        'active' => $active, ]);
+}
 }

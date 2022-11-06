@@ -1,69 +1,86 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-	<h1 class="title text-center">Articles</h1>
-	{% for article in articles %}
+	<h1 class="button_all_title display-5 title text-center">Articles</h1>
 
-		<div class="container-md text-center rounded my-3">
+	<div class="card background-ws-dark">
+		<div class="container-fluid">
+
 			<div class="row">
-				<div class="row mx-auto my-3  justify-content-center">
-					<div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
-						<div class="carousel-inner" role="listbox">
 
 
-							<div class="carousel-item active">
-								<div class="col-12 col-md-4 col-xl-2">
-									<div class="card">
-										<img src="{{article.getImages}}" class="card-img-top" alt="..." style="height:20em;">
+				{% for article in articles %}
+					<div class="card mt-2 col-xl-2 col-md-6 col-sm-6">
+						<div class="d-fluid">
 
-										<div class="card-body">
-											<h2 class="card-title">{{article.title}}</h2>
-											<p class="card-text text-light">{{article.content}}</p>
-											<a href="/articles/show?id={{ article.id }}" class="btn btn-warning">Go to Article</a>
+							<div class="row">
+
+								<div class="col-6 col-md-12 col-xl-12">
+									<input type="hidden" class="btn btn-primary position-relative">
+
+										<span class="position-absolute top-20 start-20 translate-middle title p-2 mt-4  background-ws-light  rounded-circle">{{anime_search.results[i].score}}</span>
+
+									</input>
+									<form action="{{ROOT_URL}}/anime/like?id={{anime_list[i].malId}}" method="post">
+
+
+										<input type="hidden" class="btn btn-primary position-relative">
+											<button type="submit" class="btn  position-absolute   end-0" id="like-anime">
+
+
+												<p class="heart btn btn-warning ">♥️</p>
+
+
+											</button>
+
+
+										</input>
+									</form>
+
+
+									<a href="{{ROOT_URL}}/articles/show?id={{article.id}}" data-toggle="tooltip" data-placement="top" title="{{ anime_search.results[i].getTitle}}">
+
+										<img src="{{article.picture ? article.picture : "/assets/images/default_article.png/"}}" class="card-img-top mt-2" alt="..." style="height:15em">
+
+									</a>
+								</div>
+								<div class="col-6 col-md-12 col-xl-12">
+
+									<div class="card-body">
+										<h5 class="card-title title">{{ article.title|striptags|length > 5 ? article.title|striptags|slice(0, 5) ~ '...' : article.title|striptags }}</h5>
+
+
+										<div class="d-flex flex-row bd-highlight align-items-center mb-3">
+
+											<div class="row">
+												<a href="{{ROOT_URL}}/articles/show?id={{article.id}}" class="text-light btn background-ws-dark">
+
+													{{ article.content|raw|striptags|length > 50 ? article.content|raw|striptags|slice(0, 50) ~ '...' : article.content|raw|striptags }}
+
+												</a>
+												<a href="{{ROOT_URL}}/articles/show?id={{article.id}}" class="text-light btn btn-warning mt-2">Read article:
+
+
+												</a>
+											</div>
+
 
 										</div>
 									</div>
-
 								</div>
 							</div>
-
-							{% for i in 1..8 %}
-
-								<div class="carousel-item">
-									<div class="col-12 col-md-4 col-xl-2">
-
-										<div class="card">
-											<img src="{{result[i].getImages}}" class="card-img-top" alt="..." style="height:20em;">
-											<div class="card-body">
-												<h2 class="card-title">Article title</h2>
-												<p class="card-text text-light">{{article.content}}</p>
-
-
-												<a href="/articles/show?id={{ article.id }}" class="btn btn-warning">Go to Article</a>
-
-											</div>
-										</div>
-
-
-									</div>
-								</div>
-							{% endfor %}
 						</div>
-						<a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						</a>
-						<a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						</a>
 					</div>
-				</div>
+				{% else %}
+					<li>Nothing to display</li>
+				{% endfor %}
+
+
 			</div>
+
 
 		</div>
 
 
-	{% else %}
-		<li>Nothing to display</li>
-	{% endfor %}
-	<a href="/articles/add">Ajouter</a>
+	</div>
 {% endblock %}

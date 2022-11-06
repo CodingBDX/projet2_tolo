@@ -53,6 +53,10 @@ class UserController extends AbstractController
                 $register = $userManager->insert($user);
 
                 $session = new Session();
+
+                $session->write('user_id', $user['id']);
+                //  $session->write('mail', $_GET['mail']);
+
                 $session->setFlash('status', 'welcome to supra manga site powaa');
                 header('Location:/member/user_profile?id='.$register);
 
@@ -74,6 +78,24 @@ class UserController extends AbstractController
             }
         }
 
+        public function isLogin()
+        {
+            if ('POST' === $_SERVER['REQUEST_METHOD']) {
+                $credentials = array_map('trim', $_POST);
+//      @todo make some controls on email and password fields and if errors, send them to the view
+                $userManager = new UserManager();
+                $user = $userManager->isLogin($credentials['mail']);
+                if ($user && password_verify($credentials['password'], $user['password'])) {
+                    $_SESSION['user_id'] = $user['id'];
+                    header('Location: /member/user_profile?id='.$id);
+
+                    exit;
+                }
+            }
+
+            return $this->twig->render('User/login.html.twig');
+        }
+
          public function show_profile_user(string $id): string
          {
              if ('GET' === $_SERVER['REQUEST_METHOD']) {
@@ -84,6 +106,9 @@ class UserController extends AbstractController
 
                  $userManager = new UserManager();
                  $user_profile = $userManager->selectOneById($id);
+
+                 $session->read('user_id', $_GET['id']);
+                 //  $session->write('mail', $_GET['mail']);
 
                  $api = new MalClient();
                  if (isset($_SESSION['flash'])) {
@@ -103,8 +128,6 @@ class UserController extends AbstractController
                  } else {
                      $requestManga = '';
                  }
-                 $session->write('id', $_GET['id']);
-                 //  $session->write('mail', $_GET['mail']);
 
                  return $this->twig->render(
                      'Member/user_profile.html.twig',

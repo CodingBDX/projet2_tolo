@@ -6,118 +6,103 @@
 		<span class="fs-4 title">Sidebar</span>
 	</a>
 	<hr>
-	<ul class="nav  flex-column mb-auto background-ws-light">
+	<ul class="nav text-center  flex-column mb-auto background-ws-light" id="nav">
+		<li class="nav-item ">
+			<a href="/" class="{% if active == '/index.php' %}btn-warning{% endif %} nav-link text-light" aria-current="page">
+
+
+				Home</a>
+		</li>
 		<li class="nav-item">
-			<a href="/" class="nav-link btn-warning text-light active" aria-current="page">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="boostrap-icons.svg#home"/></svg>
-				<i class="bi-alarm"></i>
+			<a href="/anime" class="{% if active == '/index.php/anime' or active == '/index.php/anime/show' %}btn-warning{% endif %} nav-link text-light">
 
-				Home
 
-			</a>
+				Anime</a>
 		</li>
-		<li>
-			<a href="/anime" class="nav-link link-dark">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-				Anime
-			</a>
+		<li class="nav-item">
+			<a href="/manga" class="{% if active == '/index.php/manga' or active == '/index.php/manga/show' %}btn-warning{% endif %} nav-link text-light">
+
+
+				Manga</a>
 		</li>
-		<li>
-			<a href="/manga" class="nav-link link-dark">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-				Manga
-			</a>
+		<li class="nav-item">
+			<a href="/articles" class="{% if active == '/index.php/articles' or active == '/index.php/articles/show' %}btn-warning{% endif %} nav-link text-light">
+
+
+				Articles</a>
 		</li>
-		<li>
-			<a href="/articles" class="nav-link link-dark">
-				<svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-				Articles
-			</a>
-		</li>
-
-
-	</ul>
-	<hr>
-
-	{# search bar #}
-	<div class="background-ws-light p-2">
-
-		<form action="/anime/search?query={{ query }}" method="get">
-
-
-			<input class="form-control me-2" type="text" placeholder="{{query}}" value="{{ query }}" name="query" aria-label="Search">
-
-
-			<div class="overflow-scroll  title mt-2 p-2  background-ws-dark rounded" style="max-height:7em">
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="{{anime}}" id="anime" class="anime">
-					<label class=" form-check-label" for=" flexcheckdefault">
-						Anime
-					</label>
-				</div>
-
-				<div class="form-check">
-
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Mangaa
-					</label>
-				</div>
-
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Default checkbox
-					</label>
-				</div>
-
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Default checkbox
-					</label>
-				</div>
-
-				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-					<label class="form-check-label" for="flexCheckDefault">
-						Default checkbox
-					</label>
-				</div>
+	</li>
+</ul>
+<hr>
+<div class="background-ws-light p-2">
+	<form action="/anime/search?q={{ query }}" method="get"><input class="form-control me-2" type="text" placeholder="{{query}}" value="q" name="query" aria-label="Search"><div class="overflow-scroll  title mt-2 p-2  background-ws-dark rounded" style="max-height:7em">
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="{{animeb}}" id="animeb" class="animeb">
+				<label class=" form-check-label" for=" flexcheckdefault">
+					Anime
+				</label>
 			</div>
-			<div class="d-flex flex-column">
 
-				<button class=" btn btn-warning mt-2" type="submit">Search</button>
+			<div class="form-check">
+
+				<input class="form-check-input" type="checkbox" value="tv" name="type" id="flexCheckDefault">
+
+				<label class="form-check-label" for="flexCheckDefault">
+					type|tv
+				</label>
 			</div>
-			<p class="title mt-2">status</p>
-			<div class="d-flex flex-row">
 
-
-				<div class="col-6">
-					<div class="form-check">
-
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label text-light" for="flexCheckDefault">
-							finish
-						</label>
-					</div>
-
-				</div>
-				<div class="col-6">
-					<div class="form-check">
-
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-						<label class="form-check-label text-light" for="flexCheckDefault">
-
-							on going
-						</label>
-					</div>
-
-
-				</div>
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="movie" name="type" id="flexCheckDefault">
+				<label class="form-check-label" for="flexCheckDefault">
+					type|movie
+				</label>
 			</div>
-		</form>
+
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<label class="form-check-label" for="flexCheckDefault">
+					Default checkbox
+				</label>
+			</div>
+
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				<label class="form-check-label" for="flexCheckDefault">
+					Default checkbox
+				</label>
+			</div>
+		</div>
+		<div class="d-flex flex-column">
+
+			<button class=" btn btn-warning mt-2" type="submit">Search</button>
+		</div>
+		<label for="customRange2" class="form-label title mt-2">Range Score(0 to 10)</label><input type="range" class="form-range" min="0" max="10" name="min_score" value="10" id="customRange2"><p class="title mt-2">status</p>
+		<div class="d-flex flex-row">
 
 
-	</div>
-</div>
+			<div class="col-6">
+				<div class="form-check">
+
+					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+					<label class="form-check-label text-light" for="flexCheckDefault">
+						finish
+					</label>
+				</div>
+
+			</div>
+			<div class="col-6">
+				<div class="form-check">
+
+					<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+					<label class="form-check-label text-light" for="flexCheckDefault">
+
+						on going
+					</label>
+				</div>
+
+
+			</div>
+		</div>
+	</form>
+</div></div>
