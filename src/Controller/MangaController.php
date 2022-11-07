@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
-use App\Model\Breadcrumb;
-use App\Model\Session;
 use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
 use Jikan\Request\Manga\MangaRequest;
@@ -17,19 +15,11 @@ class MangaController extends AbstractController
      */
     public function listManga(): string
     {
-        $breadcrumb = new Breadcrumb();
-        $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
-
-        $session = new Session();
-        $id = $session->read('id');
-
-        $active = $_SERVER['PHP_SELF'];
-
-        if (isset($_SESSION['id'])) {
+        if (isset($_SESSION['user_id'])) {
             $userManager = new UserManager();
-            $user_profile = $userManager->selectOneById($_SESSION['id']);
+            $user_profile = $userManager->selectOneById($_SESSION['user_id']);
         } else {
-            $user_profile = 'end';
+            $user_profile = '';
         }
 
         $apiManga = new MalClient();
@@ -41,22 +31,12 @@ class MangaController extends AbstractController
 
         return $this->twig->render('Manga/manga.html.twig', ['manga_list' => $manga,
             'article' => $articles,
-            'session' => $_SESSION,
-            'user' => $user_profile,
-            'breadcrumb' => $breadcrumbMake,
-            'active' => $active,
         ]);
     }
 
     // show unique page info manga
          public function showMangaMoreInfo(int $malId): string
          {
-             $breadcrumb = new Breadcrumb();
-             $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
-
-             $session = new Session();
-             $id = $session->read('id');
-             $active = $_SERVER['PHP_SELF'];
              if (isset($_SESSION['id'])) {
                  $userManager = new UserManager();
                  $user_profile = $userManager->selectOneById($_SESSION['id']);
@@ -69,10 +49,6 @@ class MangaController extends AbstractController
              $data = $apiAnime->getManga(new MangaRequest($malId));
 
              return $this->twig->render('Manga/show.html.twig', ['manga_show' => $data,
-                 'session' => $_SESSION,
-                 'user' => $user_profile,
-                 'breadcrumb' => $breadcrumbMake,
-                 'active' => $active,
              ]);
          }
 }

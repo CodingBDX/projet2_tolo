@@ -10,7 +10,7 @@
 						<div class="carousel-item active">
 							<div class="col-12 col-md-4 col-xl-2">
 								<div class="card px-2">
-									<img src="{{article[0].picture}}" class="card-img-top py-2" alt="..." style="height:20em;">
+									<img src="{{article[0].picture ? article[0].picture : "/assets/images/default_article.png/"}}" class="card-img-top py-2" alt="..." style="height:20em;">
 
 
 									<div class="card-body">
@@ -36,14 +36,15 @@
 
 										<div class="card px-2">
 
-											<img src="{{article[i].picture}}" class="py-2 card-img-top" alt="..." style="height:20em;">
+											<img src="{{article[i].picture ? article[i].picture : "/assets/images/default_article.png/"}}" class="py-2 card-img-top" alt="..." style="height:20em;">
+
 											<div class="card-body">
 												<h2 class="card-title">{{ article[i].title|striptags|length > 12 ? article[i].title|striptags|slice(0, 12) ~ '...' : article[i].title|striptags }}</h2>
 
 
 												<p class="card-text text-light">{{ article[i].content|striptags|length > 100 ? article[i].content|striptags|slice(0, 100) ~ '...' : article[i].content|striptags }}</p>
 
-												<a href="/articles/show?id={{ article[0].id }}" class="btn btn-warning">Go to Article</a>
+												<a href="/articles/show?id={{ article[i].id }}" class="btn btn-warning">Go to Article</a>
 
 
 											</div>

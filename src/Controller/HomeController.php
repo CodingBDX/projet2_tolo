@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
-use App\Model\Breadcrumb;
 use App\Model\Cookie;
-use App\Model\Session;
 use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
 use Jikan\Request\Top\TopAnimeRequest;
@@ -18,15 +16,9 @@ class HomeController extends AbstractController
      */
     public function index(): string
     {
-        $breadcrumb = new Breadcrumb();
-        $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
-
-        $session = new Session();
-        $id = $session->read('user_id');
-
-        $active = $_SERVER['PHP_SELF'];
-
         if (isset($_SESSION['user_id'])) {
+            // $session->read('user_id');
+
             $userManager = new UserManager();
             $user_profile = $userManager->selectOneById($_SESSION['user_id']);
         } else {
@@ -45,21 +37,7 @@ class HomeController extends AbstractController
         return $this->twig->render('Home/index.html.twig', ['manga_list' => $manga,
             'anime_list' => $anime,
             'article' => $article,
-            'session' => $_SESSION,
-            'user' => $user_profile,
-            'breadcrumb' => $breadcrumbMake,
-            'active' => $active,
         ]);
-    }
-
-    public function likeAnime($id)
-    {
-        if ('POST' === $_SERVER['REQUEST_METHOD']) {
-            $cookie = new Cookie();
-            $cookie->setCookie('anime_like', $id);
-
-            header('Location: /');
-        }
     }
 
         public function likeManga($id)

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Model\Breadcrumb;
+use App\Model\Session;
 use App\Model\UserManager;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
@@ -26,8 +28,28 @@ abstract class AbstractController
         );
         $this->twig->addExtension(new DebugExtension());
 
+        // new session for all page
+
+        $session = new Session();
+        $this->twig->addGlobal('session', $_SESSION);
+
         $userManager = new UserManager();
-        $this->user_profile = isset($_SESSION['user_id']) ? $userManager->selectOneById($_SESSION['user_id']) : false;
-        $this->twig->addGlobal('user_profile', $this->user_profile);
+        $userManager->user_profile = isset($_SESSION['user_id']) ? $userManager->selectOneById($_SESSION['user_id']) : false;
+        $this->twig->addGlobal('user', $userManager->user_profile);
+
+        // active link for menu sidebar
+
+        $active = $_SERVER['PHP_SELF'];
+
+        $this->twig->addGlobal('active', $active);
+
+        //  breadcrumb for all page
+
+        $breadcrumb = new Breadcrumb();
+        $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
+
+        $this->twig->addGlobal('breadcrumb', $breadcrumbMake);
+
+        // charging api
     }
 }

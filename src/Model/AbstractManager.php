@@ -63,4 +63,14 @@ abstract class AbstractManager
 
          return $this->em->getRepository('CoursatBundle:test')->find($correct_page);
      }
+
+     public function likeAnime($id)
+     {
+         if ('POST' === $_SERVER['REQUEST_METHOD']) {
+             $cookie = new Cookie();
+             $cookie->setCookie('anime_like', $id);
+
+             return header('Location: /anime');
+         }
+     }
 }

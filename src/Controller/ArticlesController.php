@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
-use App\Model\Session;
 use App\Model\UserManager;
 
 class ArticlesController extends AbstractController
@@ -11,14 +10,10 @@ class ArticlesController extends AbstractController
     public function addArticle(): ?string
     {
         // TODO validations (length, format...)
-        $errors = [];
 
-        $session = new Session();
-        $id = $session->read('id');
-
-        if (isset($_SESSION['id'])) {
+        if (isset($_SESSION['user_id'])) {
             $userManager = new UserManager();
-            $user_profile = $userManager->selectOneById($_SESSION['id']);
+            $user_profile = $userManager->selectOneById($_SESSION['user_id']);
         } else {
             $user_profile = '';
         }
@@ -73,13 +68,11 @@ class ArticlesController extends AbstractController
     // member show only access not admin directory
         public function showArticleMember(int $id): string
         {
-            $active = $_SERVER['PHP_SELF'];
-
             $articlesManager = new ArticleManager();
             $article = $articlesManager->selectOneById($id);
 
             return $this->twig->render('Article/show.html.twig', ['articles' => $article,
-                'active' => $active, ]);
+            ]);
         }
 
     /**
@@ -125,12 +118,10 @@ class ArticlesController extends AbstractController
     // Edit a specific item
 public function articlesMember(): string
 {
-    $active = $_SERVER['PHP_SELF'];
-
     $articleManager = new ArticleManager();
     $articles = $articleManager->selectAll('id');
 
     return $this->twig->render('Article/index.html.twig', ['articles' => $articles,
-        'active' => $active, ]);
+    ]);
 }
 }

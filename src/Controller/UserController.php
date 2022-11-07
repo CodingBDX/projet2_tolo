@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Model\Bcrypt;
-use App\Model\Breadcrumb;
 use App\Model\Session;
 use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
@@ -52,12 +51,10 @@ class UserController extends AbstractController
                 $userManager = new UserManager();
                 $register = $userManager->insert($user);
 
-                $session = new Session();
-
-                $session->write('user_id', $user['id']);
+                $_SESSION['user_id'] = $user['id'];
                 //  $session->write('mail', $_GET['mail']);
 
-                $session->setFlash('status', 'welcome to supra manga site powaa');
+                $_SESSION['status'] = 'welcome to supra manga site powaa';
                 header('Location:/member/user_profile?id='.$register);
 
                 return null;
@@ -70,9 +67,9 @@ class UserController extends AbstractController
         {
             if ('POST' === $_SERVER['REQUEST_METHOD']) {
                 // //  init session
-                $session = new Session();
 
-                $session->delete('mail');
+                session_unset();
+                session_destroy();
 
                 header('Location:/');
             }
@@ -100,14 +97,8 @@ class UserController extends AbstractController
          {
              if ('GET' === $_SERVER['REQUEST_METHOD']) {
                  //  init session
-                 $breadcrumb = new Breadcrumb();
-                 $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
-                 $session = new Session();
 
-                 $userManager = new UserManager();
-                 $user_profile = $userManager->selectOneById($id);
-
-                 $session->read('user_id', $_GET['id']);
+                 $_SESSION['user_id'] = $_GET['id'];
                  //  $session->write('mail', $_GET['mail']);
 
                  $api = new MalClient();
@@ -132,11 +123,8 @@ class UserController extends AbstractController
                  return $this->twig->render(
                      'Member/user_profile.html.twig',
                      [
-                         'user' => $user_profile,
-                         'session' => $_SESSION,
                          'anime_like' => $requestAnime,
                          'manga_like' => $requestManga,
-                         'breadcrumb' => $breadcrumbMake,
                      ]
                  );
              }
@@ -168,9 +156,6 @@ public function edit_avatar(int $id)
 
     public function edit(int $id): ?string
     {
-        $userManager = new UserManager();
-        $user = $userManager->selectOneById($id);
-
         $bcrypt = new Bcrypt(15);
 
         if ('POST' === $_SERVER['REQUEST_METHOD']) {

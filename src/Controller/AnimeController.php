@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Model\ArticleManager;
-use App\Model\Breadcrumb;
 use App\Model\CommentsManager;
-use App\Model\Session;
 use App\Model\UserManager;
 use Jikan\MyAnimeList\MalClient;
 use Jikan\Request\Anime\AnimeRequest;
@@ -22,19 +20,11 @@ class AnimeController extends AbstractController
      */
     public function listAnime(): string
     {
-        $breadcrumb = new Breadcrumb();
-        $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
-
-        $session = new Session();
-        $id = $session->read('id');
-
-        $active = $_SERVER['PHP_SELF'];
-
-        if (isset($_SESSION['id'])) {
+        if (isset($_SESSION['user_id'])) {
             $userManager = new UserManager();
-            $user_profile = $userManager->selectOneById($_SESSION['id']);
+            $user_profile = $userManager->selectOneById($_SESSION['user_id']);
         } else {
-            $user_profile = 'end';
+            $user_profile = '';
         }
 
         $apiAnime = new MalClient();
@@ -61,80 +51,59 @@ class AnimeController extends AbstractController
             'total' => $nbResults,
             'pager' => $pagerfanta,
             'article' => $articles,
-            'session' => $_SESSION,
-            'user' => $user_profile,
-            'breadcrumb' => $breadcrumbMake,
-            'active' => $active,
         ]);
     }
 
     // view anime info
 
-     public function showAnimeMoreInfo(int $malId): string
-     {
-         $breadcrumb = new Breadcrumb();
-         $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
+    public function showAnimeMoreInfo(int $malId): string
+    {
+        if (isset($_SESSION['id'])) {
+            $userManager = new UserManager();
+            $user_profile = $userManager->selectOneById($_SESSION['id']);
+        } else {
+            $user_profile = 'end';
+        }
 
-         $session = new Session();
-         $id = $session->read('id');
+        $apiAnime = new MalClient();
 
-         $active = $_SERVER['PHP_SELF'];
-         if (isset($_SESSION['id'])) {
-             $userManager = new UserManager();
-             $user_profile = $userManager->selectOneById($_SESSION['id']);
-         } else {
-             $user_profile = 'end';
-         }
+        $data = $apiAnime->getAnime(new AnimeRequest($malId));
 
-         $apiAnime = new MalClient();
+        $videos = $apiAnime->getAnimeVideos(
+            new AnimeVideosRequest($malId)
+        );
 
-         $data = $apiAnime->getAnime(new AnimeRequest($malId));
+        // Streamable Episodes
+        $episodes = $videos->getEpisodes();
 
-         $videos = $apiAnime->getAnimeVideos(
-             new AnimeVideosRequest($malId)
-         );
+        $commentManager = new CommentsManager();
+        if ('POST' === $_SERVER['REQUEST_METHOD']) {
+            $userComment = $_POST['user_comment'];
 
-         // Streamable Episodes
-         $episodes = $videos->getEpisodes();
+            $commentManager->addComment($userComment);
+            header('Location: /anime/show?id='.$malId);
+        }
 
-         $commentManager = new CommentsManager();
-         if ('POST' === $_SERVER['REQUEST_METHOD']) {
-             $userComment = $_POST['user_comment'];
+        $comments = $commentManager->selectAll('id');
 
-             $commentManager->addComment($userComment);
-             header('Location: /anime/show?id='.$malId);
-         }
-
-         $comments = $commentManager->selectAll('id');
-
-         return $this->twig->render('Anime/show.html.twig', ['anime_show' => $data,
-             'episode' => $episodes,
-             'comments' => $comments,
-             'session' => $_SESSION,
-             'user' => $user_profile,
-             'breadcrumb' => $breadcrumbMake,
-             'active' => $active,
-         ]);
-     }
+        return $this->twig->render('Anime/show.html.twig', ['anime_show' => $data,
+            'episode' => $episodes,
+            'comments' => $comments,
+        ]);
+    }
 
     //  search anime
      public function searchAnime(string $query): ?string
      {
-         if ('POST' === $_SERVER['REQUEST_METHOD']) {
-             $query = array_map('trim', $_POST);
-         }
-
-         $breadcrumb = new Breadcrumb();
-         $breadcrumbMake = $breadcrumb->makeBreadCrumbs();
-
-         $session = new Session();
-         $id = $session->read('id');
-
          if (isset($_SESSION['id'])) {
              $userManager = new UserManager();
              $user_profile = $userManager->selectOneById($_SESSION['id']);
          } else {
              $user_profile = 'end';
+         }
+
+         if ('POST' === $_SERVER['REQUEST_METHOD']) {
+             $query = array_map('trim', $_POST);
          }
 
          $apiAnime = new MalClient();
@@ -143,9 +112,6 @@ class AnimeController extends AbstractController
 
          return $this->twig->render('Anime/search.html.twig', ['anime_search' => $animeSearchResults,
              'found' => $query,
-             'session' => $_SESSION,
-             'user' => $user_profile,
-             'breadcrumb' => $breadcrumbMake,
          ]);
      }
 }
