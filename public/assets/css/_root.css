@@ -18,6 +18,18 @@
             rgba(255, 255, 255, 0));
 }
 
+body {
+    top: 0px;
+    left: 0px;
+    min-height: 100%;
+    min-width: 100%;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position-x: left;
+    background-size: cover;
+}
+
 .popup {
     z-index: 99;
 }
@@ -79,13 +91,7 @@ h2 {
     color: var(--bs-title);
 }
 
-body {
-    position: relative;
-    background: radial-gradient(ellipse at center, #ffeeac 0%, #E4D3B5 100%);
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-}
+
 
 .paperOverlay {
     position: absolute;
@@ -228,13 +234,87 @@ body {
     border-width: 10px;
     border-style: solid;
     border-radius: 50px;
-    width: 7.4em;
+    width: 10.4em;
 
     margin: .3em auto;
 
     cursor: pointer;
     border-image: linear-gradient(to left, #890201 0%, #BC2320 100%);
     border-image-slice: 1;
+}
+
+
+::-webkit-scrollbar {
+    width: 30px;
+    height: 100%;
+}
+
+/* Track scrollbar katana chrome */
+::-webkit-scrollbar-track {
+    background: var(--bs-background-general);
+}
+
+::-webkit-scrollbar-thumb {
+    background-image: url('../images/katana.svg');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 10%;
+}
+
+/* animated logo */
+.border-animate {
+    position: relative;
+    width: 110px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.focus-animate {
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    padding: 5px;
+}
+
+.border-animate::after {
+    content: '';
+    position: absolute;
+    background: var(--bs-card);
+    border-radius: 10px;
+    inset: 6px;
+
+}
+
+.border-animate::before {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 140%;
+    background: linear-gradient(#EBAB4A, #BC2320);
+    animation: logo-animate 4s linear infinite;
+    filter: brightness(1.50);
+}
+
+@keyframes logo-animate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .border-animate-2 {
+        width: 190px;
+        height: 140px;
+    }
 }
 
 /* test */
@@ -274,4 +354,3 @@ body {
 }
 
 /* end test */
-body::after {}

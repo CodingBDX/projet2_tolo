@@ -1,6 +1,9 @@
 <div class="container-md text-center rounded my-3">
 	<div class="row">
-		<div class="button_all_title display-5 my-2 title">featured articles</div>
+		<div class="d-flex button_all_title display-5 my-2 title">
+			<img src="{{ ROOT_URL }}/assets/images/ninja-icon.svg" alt="" style="width:1em">
+
+			articles featured</div>
 		<div class="row mx-auto my-3  justify-content-center">
 
 
@@ -20,7 +23,7 @@
 										<p class="card-text text-light">{{ article[0].content|striptags|length > 100 ? article[0].content|striptags|slice(0, 100) ~ '...' : article[0].content|striptags }}</p>
 
 
-										<a href="/articles/show?id={{ article[0].id }}" class="btn btn-warning">Go to Article</a>
+										<a href="{{ ROOT_URL }}/articles/show?id={{ article[0].id }}" class="btn btn-warning">Go to Article</a>
 
 
 									</div>
@@ -44,7 +47,7 @@
 
 												<p class="card-text text-light">{{ article[i].content|striptags|length > 100 ? article[i].content|striptags|slice(0, 100) ~ '...' : article[i].content|striptags }}</p>
 
-												<a href="/articles/show?id={{ article[i].id }}" class="btn btn-warning">Go to Article</a>
+												<a href="{{ ROOT_URL }}/articles/show?id={{ article[i].id }}" class="btn btn-warning">Go to Article</a>
 
 
 											</div>

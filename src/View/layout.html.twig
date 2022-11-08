@@ -16,13 +16,8 @@
 		{% endblock %}
 	</title>
 
-</head></html><body>
+</head></html><body style="background:url('{% if anime_show.trailer.images.maximumImageUrl == true or manga_show.images.jpg.largeImageUrl == true %}{{ anime_show.trailer.images.maximumImageUrl }}{{manga_show.images.jpg.largeImageUrl}}{% endif %}') center center fixed ;">{% include "_Component/_header.html.twig" %}<div class="mx-4 background-ws-dark rounded shadow">
 
-
-{% include "_Component/_header.html.twig" %}
-
-
-<div class="mx-4 background-ws-dark rounded shadow">
 	<div class="row mx-4 mt-2">
 		<div class="col-12 col-md-9 col-xl-10 background-ws-light rounded">
 			{% include "_Component/_breadcrumb.html.twig" %}
@@ -33,14 +28,6 @@
 			{% include "_Component/_nav.html.twig" %}
 		</div>
 	</div>
-	{% include "_Component/_footer.html.twig" %}
-</div>
-
-{% include "_Component/_donate.html.twig" %}
-{# {% include "_Component/_cookie.html.twig" %} #}
-
-
-<div class="paperOverlay"></div>
-
-
-{% block javascript %}{% endblock %}</body></body></html>
+	{% include "_Component/_footer.html.twig" %}</div>
+{% include "_Component/_donate.html.twig" %}{# {% include "_Component/_cookie.html.twig" %} #}<div class="paperOverlay"></div>
+{% block javascript %}{% endblock %}</body></html>

@@ -34,7 +34,7 @@ class AnimeController extends AbstractController
         $adapter = new ArrayAdapter($result);
         $pagerfanta = new Pagerfanta($adapter);
 
-        $maxPerPage = $pagerfanta->getMaxPerPage(5);
+        $maxPerPage = $pagerfanta->getMaxPerPage();
         $pagerfanta->setMaxPerPage($maxPerPage); // 10 by default
 
         $currentPage = $pagerfanta->getCurrentPage();

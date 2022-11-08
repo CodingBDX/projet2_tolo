@@ -32,12 +32,12 @@ class ArticlesController extends AbstractController
             }
 
             if (!isset($title) || (empty(trim($title)))) {
-                $session->setFlash('status', 'wrong title or empty title');
+                $_SESSION['status'] = 'wrong title or empty title';
 
                 return header('Location: addArticles');
             }
             if (!isset($content) || (empty(trim($content)))) {
-                $session->setFlash('status', 'wrong content or empty content');
+                $_SESSION['status'] = 'wrong content or empty content';
 
                 return header('Location: addArticles');
             }

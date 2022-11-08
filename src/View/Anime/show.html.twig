@@ -6,14 +6,13 @@
 
 
 {% block content %}
+
 	<div class="container-md mt-4">
 		<div class="title container-fluid p-2">
 			<h1 class="text-center mb-4 display-1">{{block('title')}}</h1>
 		</div>
 
 		<div class="row  mx-auto">
-
-
 			<div class="col-12 col-xl-6">
 				<div class="card  mt-2 ">
 					<div class="row">
@@ -24,15 +23,8 @@
 						</div>
 						<div class="col-6 mt-4">
 							<h2>{{anime_show.title}}</h2>
+							<h5 id="search_animated" class="text-light">{{anime_show.titleJapanese}}</h5>
 
-
-							<p>
-								{% for animes in anime.trailer %}
-									{{animes.youtube_id}}
-
-
-								{% endfor %}
-							</p>
 
 							<div class="progress m-2">
 								<div class="progress-bar btn-warning" role="progressbar" aria-label="Example with label" style="width: {{anime_show.getScore * 10}}%; " aria-valuenow="{{anime_show.getScore}}" aria-valuemin="0" aria-valuemax="10">note:{{anime_show.getScore}}/10</div>
@@ -68,7 +60,18 @@
 				</div>
 			</div>
 			<div class="col-12 col-xl-6">
+				{% if anime_show.trailer.embedUrl == true %}
 
+					<div class="embed-responsive row  background-ws-light rounded m-2 p-2 embed-responsive-1by1">
+						<iframe class="embed-responsive-item" src="{{anime_show.trailer.embedUrl }}" alt="{{anime_show.trailer.embedUrl ? anime_show.trailer.embedUrl : "no video" }}"></iframe>
+
+
+					</div>
+
+
+				{% else %}
+					<h4 class="d-flex row background-ws-light title m-2 text-center rounded">no video</h4>
+				{% endif %}
 
 				{% include "_Component/_comments.html.twig" %}
 
@@ -80,6 +83,7 @@
 	</div>
 {% endblock %}
 {% block javascript %}
+	<script src="/assets/js/search_animated.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 

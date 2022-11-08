@@ -34,8 +34,8 @@ abstract class AbstractController
         $this->twig->addGlobal('session', $_SESSION);
 
         $userManager = new UserManager();
-        $userManager->user_profile = isset($_SESSION['user_id']) ? $userManager->selectOneById($_SESSION['user_id']) : false;
-        $this->twig->addGlobal('user', $userManager->user_profile);
+        $userManager->isLogin = isset($_SESSION['user_id']) ? $userManager->selectOneById($_SESSION['user_id']) : false;
+        $this->twig->addGlobal('user', $userManager->isLogin);
 
         // active link for menu sidebar
 
