@@ -234,12 +234,12 @@ h2 {
     border-width: 10px;
     border-style: solid;
     border-radius: 50px;
-    width: 10.4em;
+    width: auto;
 
     margin: .3em auto;
 
     cursor: pointer;
-    border-image: linear-gradient(to left, #890201 0%, #BC2320 100%);
+    border-image: linear-gradient(to left, #BC2320 0%, #F1B24E 100%);
     border-image-slice: 1;
 }
 
@@ -310,6 +310,7 @@ h2 {
     }
 }
 
+
 @media screen and (max-width: 700px) {
     .border-animate-2 {
         width: 190px;
@@ -332,6 +333,26 @@ h2 {
 .carousel-inner .carousel-item-next,
 .carousel-inner .carousel-item-prev {
     display: flex;
+}
+
+/* animate donate */
+.animation-donate {
+    animation: slide-in-and-out 1s ease-in-out;
+}
+
+@keyframes slide-in-and-out {
+    0% {
+        transform: translateX(100%);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    100 % {
+        transform: translateX(0);
+    }
+
 }
 
 /* medium and up screens */

@@ -2,19 +2,19 @@
 
 {% block content %}
 
-	<div class="container-fluid row mt-4 mb-4 p-3">
+	<div class="container-fluid row my-4  p-3">
 
 
 		{% include "_Component/_caroussel.html.twig"  with {'article': article} %}
 
 
-		<div class="card background-ws-dark  col-12 col-md-6 col-xl-6">
-			<div class="container">
+		<div class="card background-ws-dark mt-4  col-12 col-md-6 col-xl-6">
+			<div class="container mb-2">
 
 				<h2 class="button_all_title title text-center">Anime top</h2>
 				<div class="row">
 
-					{% for i in 0..11 %}
+					{% for i in 0..7 %}
 						<div class="card mt-2 col-xl-3 col-md-6 col-sm-6">
 							<div class="d-fluid">
 
@@ -88,17 +88,17 @@
 		</div>
 
 
-		<div class="card background-ws-dark   col-12 col-md-6 col-xl-6">
+		<div class="card background-ws-dark mt-4 col-12 col-md-6 col-xl-6">
 
 
-			<div class="container ">
+			<div class="container">
 
 
 				<h2 class="button_all_title title text-center">Manga top</h2>
 				<div class="row ">
 
 
-					{% for i in 0..11 %}
+					{% for i in 0..7 %}
 						<div class="card mt-2 col-xl-3 col-md-6 col-sm-6">
 
 							<div class="d-fluid">

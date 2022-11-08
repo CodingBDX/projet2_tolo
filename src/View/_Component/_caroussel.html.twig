@@ -1,6 +1,6 @@
-<div class="container-md text-center rounded my-3">
+<div class="container-md text-center rounded my-3 mb-4">
 	<div class="row">
-		<div class="d-flex button_all_title display-5 my-2 title">
+		<div class="d-flex  button_all_title display-5 my-2 title">
 			<img src="{{ ROOT_URL }}/assets/images/ninja-icon.svg" alt="" style="width:1em">
 
 			articles featured</div>
@@ -12,7 +12,7 @@
 					{% if article[0].is_featured == 1 %}
 						<div class="carousel-item active">
 							<div class="col-12 col-md-4 col-xl-2">
-								<div class="card px-2">
+								<div class="card px-2 ms-2">
 									<img src="{{article[0].picture ? article[0].picture : "/assets/images/default_article.png/"}}" class="card-img-top py-2" alt="..." style="height:20em;">
 
 
@@ -37,7 +37,7 @@
 								<div class="carousel-item">
 									<div class="col-12 col-md-4 col-xl-2">
 
-										<div class="card px-2">
+										<div class="card px-2 ms-2">
 
 											<img src="{{article[i].picture ? article[i].picture : "/assets/images/default_article.png/"}}" class="py-2 card-img-top" alt="..." style="height:20em;">
 

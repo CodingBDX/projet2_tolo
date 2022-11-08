@@ -16,18 +16,28 @@
 		{% endblock %}
 	</title>
 
-</head></html><body style="background:url('{% if anime_show.trailer.images.maximumImageUrl == true or manga_show.images.jpg.largeImageUrl == true %}{{ anime_show.trailer.images.maximumImageUrl }}{{manga_show.images.jpg.largeImageUrl}}{% endif %}') center center fixed ;">{% include "_Component/_header.html.twig" %}<div class="mx-4 background-ws-dark rounded shadow">
+</head></html><body style="background:url('{% if anime_show.trailer.images.maximumImageUrl == true or manga_show.images.jpg.largeImageUrl == true %}{{ anime_show.trailer.images.maximumImageUrl }}{{manga_show.images.jpg.largeImageUrl}}{% else %}/assets/images/background-site.jpg{% endif %}') fixed;background-size:cover;background-position:center center;height:100vh;width:100vw;">
 
-	<div class="row mx-4 mt-2">
-		<div class="col-12 col-md-9 col-xl-10 background-ws-light rounded">
-			{% include "_Component/_breadcrumb.html.twig" %}
-			{% block content %}{% endblock %}
+
+<div class="mx-4 rounded shadow">
+	{% include "_Component/_header.html.twig" %}
+
+	<div class="paperOverlay"></div>
+	<div class="row ms-4 me-2  mt-4">
+		<div class="col-12 col-md-9 col-xl-10 ps-4 pe-2 background-ws-light  rounded"> {% block content %}{% endblock %}
+
+			</div>
+			<div class="col-12 col-md-3 col-xl-2">
+				{% include "_Component/_nav.html.twig" %}
+			</div>
+
 
 		</div>
-		<div class="col-12 col-md-3 col-xl-2   mt-2">
-			{% include "_Component/_nav.html.twig" %}
+		<div class="mx- rounded shadow">
+			{% include "_Component/_footer.html.twig" %}
 		</div>
 	</div>
-	{% include "_Component/_footer.html.twig" %}</div>
-{% include "_Component/_donate.html.twig" %}{# {% include "_Component/_cookie.html.twig" %} #}<div class="paperOverlay"></div>
-{% block javascript %}{% endblock %}</body></html>
+	{% include "_Component/_donate.html.twig" %}
+	{# {% include "_Component/_cookie.html.twig" %} #}
+	{% block javascript %}{% endblock %}
+</body></html>
