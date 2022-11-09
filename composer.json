@@ -23,8 +23,7 @@
         "filp/whoops": "^2.14",
         "phpmd/phpmd": "^2.12",
         "phpstan/phpstan": "^1.5",
-        "squizlabs/php_codesniffer": "^3.6",
-        "heroku/heroku-buildpack-php": "*"
+        "squizlabs/php_codesniffer": "^3.6"
     },
     "autoload": {
         "psr-4": {
