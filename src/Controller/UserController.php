@@ -52,6 +52,10 @@ class UserController extends AbstractController
                 $register = $userManager->insert($user);
 
                 $_SESSION['user_id'] = $user['id'];
+
+                $_SESSION['user_password'] = $user['password'];
+                $_SESSION['user_mail'] = $user['mail'];
+
                 //  $session->write('mail', $_GET['mail']);
 
                 $_SESSION['status'] = 'welcome to supra manga site powaa';
@@ -79,27 +83,31 @@ class UserController extends AbstractController
         {
             if ('POST' === $_SERVER['REQUEST_METHOD']) {
                 $credentials = array_map('trim', $_POST);
+
 //      @todo make some controls on email and password fields and if errors, send them to the view
                 $userManager = new UserManager();
-                $user = $userManager->isLogin($credentials['mail']);
-                if ($user && password_verify($credentials['password'], $user['password'])) {
-                    $_SESSION['user_id'] = $user['id'];
-                    header('Location: /member/user_profile?id='.$id);
+                $user = $userManager->isLogin($credentials['mail'], $credentials['password']);
+
+                if ($credentials['password'] === $user[0]['password']) {
+                    $_SESSION['user_id'] = $user[0]['id'];
+
+                    header('Location: /member/user_profile?id='.$user[0]['id']);
 
                     exit;
                 }
+
+                header('Location: /');
             }
 
-            return $this->twig->render('User/login.html.twig');
+            return $this->twig->render('Home/index.html.twig');
         }
 
-         public function show_profile_user(string $id): string
+         public function show_profile_user(int $id): string
          {
              if ('GET' === $_SERVER['REQUEST_METHOD']) {
                  //  init session
 
-                 $_SESSION['user_id'] = $_GET['id'];
-                 //  $session->write('mail', $_GET['mail']);
+                 $_SESSION['user_id'] = $id;
 
                  $api = new MalClient();
                  if (isset($_SESSION['flash'])) {
@@ -156,14 +164,13 @@ public function edit_avatar(int $id)
 
     public function edit(int $id): ?string
     {
-        $bcrypt = new Bcrypt(15);
-
         if ('POST' === $_SERVER['REQUEST_METHOD']) {
             // clean $_POST data
             $user = array_map('trim', $_POST);
-            $isGood = $bcrypt->verify($_POST['password'], $user['password']);
 
             // TODO validations (length, format...)
+
+            $userManager = new UserManager();
 
             // if validation is ok, update and redirection
             $userManager->update($user);
@@ -176,7 +183,6 @@ public function edit_avatar(int $id)
 
         return $this->twig->render('member/user_profile.html.twig', [
             'user' => $user,
-            'password' => $isGood,
         ]);
     }
 }

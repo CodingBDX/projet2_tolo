@@ -36,7 +36,7 @@ class UserManager extends AbstractManager
 
          $statement->execute();
 
-         return (int) $this->pdo->lastInsertId();
+         return $this->pdo->lastInsertId();
      }
 
          public function update(array $user): bool

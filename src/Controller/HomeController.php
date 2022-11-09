@@ -49,4 +49,14 @@ class HomeController extends AbstractController
                 header('Location: /');
             }
         }
+
+         public function likeAnime($id)
+         {
+             if ('POST' === $_SERVER['REQUEST_METHOD']) {
+                 $cookie = new Cookie();
+                 $cookie->setCookie('anime_like', $id);
+
+                 header('Location: /');
+             }
+         }
 }
