@@ -14,12 +14,13 @@
         "ext-pdo": "*",
         "jikan-me/jikan": "^4",
         "twbs/bootstrap": "^5.2",
-        "froala/wysiwyg-editor-php-sdk": "^4.0"
+        "froala/wysiwyg-editor-php-sdk": "^4.0",
+        "jasongrimes/paginator": "~1.0",
+        "symfony/flex": "^1.19"
     },
     "require-dev": {
         "filp/whoops": "^2.14",
         "phpmd/phpmd": "^2.12",
-        "phpro/grumphp": "^1.9",
         "phpstan/phpstan": "^1.5",
         "squizlabs/php_codesniffer": "^3.6"
     },
