@@ -66,17 +66,78 @@
 	<div class="d-grid gap-2 mx-2 d-block d-md-none d-xl-none">
 
 		<div class="swipe-menu">
-			<input class="btn btn-warning mx-2 text-light" type="button" value="Inscription">
 
 
-			<input class="btn btn-warning mx-2" type="button" value="connexion">
+			{% if session.user_id %}
+				<form action="{{ ROOT_URL }}/member/user_profile?id={{user.id}}" method="post">
 
 
-			<input class="btn btn-warning mx-2" type="button" value="Anime">
+					<input class="btn btn-warning mx-2 text-light" type="submit" value="Profile">
+				</form>
 
 
-			<input class="btn btn-warning mx-2" type="button" value="Manga">
-			<input type="button" value="Article" class="btn btn-warning mx-2"></div>
+				<form action="{{ ROOT_URL }}/member/is_logout" method="POST">
+
+
+					<input class="btn btn-warning mx-2" type="submit" name="user_mail" value="logout">
+				</form>
+
+				<a href="/">
+
+
+					<input class="btn btn-warning mx-2" type="button" value="Home">
+				</a>
+
+				<a href="/anime">
+
+
+					<input class="btn btn-warning mx-2" type="button" value="Anime">
+				</a>
+				<a href="/manga">
+
+
+					<input class="btn btn-warning mx-2" type="button" value="Manga">
+				</a>
+
+				<a href="/articles">
+
+
+					<input class="btn btn-warning mx-2" type="button" value="Article">
+				</a>
+
+
+			{% else %}
+
+				<input class="btn btn-warning mx-2 text-light" type="button" value="Inscription" data-bs-toggle="modal" data-bs-target="#Modal_register">
+
+
+				<input class="btn btn-warning mx-2" type="button" value="connexion" data-bs-toggle="modal" data-bs-target="#Modal_login">
+				<a href="/">
+
+
+					<input class="btn btn-warning mx-2" type="button" value="Home">
+				</a>
+
+				<a href="/anime">
+
+
+					<input class="btn btn-warning mx-2" type="button" value="Anime">
+				</a>
+				<a href="/manga">
+
+
+					<input class="btn btn-warning mx-2" type="button" value="Manga">
+				</a>
+
+				<a href="/articles">
+
+
+					<input class="btn btn-warning mx-2" type="button" value="Article">
+				</a>
+
+			{% endif %}
+
+		</div>
 
 
 	</div>
