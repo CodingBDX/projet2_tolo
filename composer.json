@@ -14,8 +14,6 @@
         "ext-pdo": "*",
         "jikan-me/jikan": "^4",
         "twbs/bootstrap": "^5.2",
-        "twbs/bootstrap-icons": "^1.9",
-        "pagerfanta/pagerfanta": "^3.6",
         "froala/wysiwyg-editor-php-sdk": "^4.0"
     },
     "require-dev": {
