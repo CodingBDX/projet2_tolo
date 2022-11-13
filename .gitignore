@@ -7,3 +7,5 @@ db.php
 .vscode
 
 .env
+.heroku/
+.profile.d/

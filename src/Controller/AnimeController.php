@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+ use JasonGrimes\Paginator;
+
 use App\Model\ArticleManager;
 use App\Model\CommentsManager;
 use App\Model\UserManager;
@@ -31,26 +33,21 @@ class AnimeController extends AbstractController
         $topAnime = $apiAnime->getTopAnime(new TopAnimeRequest(1, 'tv'));
         $result = $topAnime->getResults();
 
-        $adapter = new ArrayAdapter($result);
-        $pagerfanta = new Pagerfanta($adapter);
 
-        $maxPerPage = $pagerfanta->getMaxPerPage();
-        $pagerfanta->setMaxPerPage($maxPerPage); // 10 by default
+$totalItems = 1000;
+$itemsPerPage = 50;
+$currentPage = 8;
+$urlPattern = '/foo/page/(:num)';
 
-        $currentPage = $pagerfanta->getCurrentPage();
-        $pagerfanta->setCurrentPage($currentPage); // 1 by default
+$paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
 
-        $nbResults = $pagerfanta->getNbResults();
-        $currentPageResults = $pagerfanta->getCurrentPageResults();
 
         $articleManager = new ArticleManager();
         $articles = $articleManager->selectAll('title');
 
         return $this->twig->render('Anime/anime.html.twig', ['anime_list' => $result,
-            'totalPerPage' => $currentPageResults,
-            'total' => $nbResults,
-            'pager' => $pagerfanta,
             'article' => $articles,
+        'pagination' => $paginator
         ]);
     }
 

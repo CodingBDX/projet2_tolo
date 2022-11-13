@@ -1,9 +1,14 @@
-# This will prevent generating "Not Found" error in browser
-# Then we will manually do the rest to produce page for user
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteRule ^ index.php [QSA,L]
+RewriteEngine on
+RewriteBase /
 
-</IfModule>
+# Defines 404 error pages content:
+ErrorDocument 404 /my_root/errors/404.html
+
+# for all invalid links (non existing files):
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* - [L,R=404]
+
+# for some valid links (existing files to be un-accessible):
+RewriteCond %{THE_REQUEST} ^.*some_file.php.*$ [NC]
+RewriteRule .* - [L,R=404]

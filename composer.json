@@ -13,7 +13,9 @@
         "ext-pdo": "*",
         "jikan-me/jikan": "^4",
         "twbs/bootstrap": "^5.2",
-        "froala/wysiwyg-editor-php-sdk": "^4.0"
+        "froala/wysiwyg-editor-php-sdk": "^4.0",
+        "jasongrimes/paginator": "~1.0",
+        "pagerfanta/pagerfanta": "^3.6"
     },
     "require-dev": {
         "filp/whoops": "^2.14",
